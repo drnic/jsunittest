@@ -69,6 +69,13 @@
       assertEqual("some status", logline.getElementsByTagName('td')[1].innerHTML);
     }},
 
+    // Summary
+    testSummary: function() { with(this) {
+      logger.start("test 1");
+      logger.summary("some summary");
+      assertMatch(/some\ssummary/, testlog_test.innerHTML);
+    }},
+
     
       
   }, {testLog: "testlog"}); 

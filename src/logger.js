@@ -29,7 +29,8 @@ DrNicTest.Unit.Logger.prototype.message = function(message) {
   
 DrNicTest.Unit.Logger.prototype.summary = function(summary) {
   if (!this.element) return;
-  this.element.down('div').update(this._toHTML(summary));
+  var div = this.element.getElementsByTagName('div')[0];
+  div.innerHTML = this._toHTML(summary);
 };
   
 DrNicTest.Unit.Logger.prototype.getLastLogLine = function() {
@@ -39,7 +40,8 @@ DrNicTest.Unit.Logger.prototype.getLastLogLine = function() {
 };
   
 DrNicTest.Unit.Logger.prototype.getMessageCell = function() {
-  return this.getLastLogLine().down('td', 2);
+  var logline = this.getLastLogLine();
+  return logline.getElementsByTagName('td')[2];
 };
   
 DrNicTest.Unit.Logger.prototype._createLogTable = function() {
@@ -64,6 +66,7 @@ DrNicTest.Unit.Logger.prototype.appendActionButtons = function(actions) {
 };
   
 DrNicTest.Unit.Logger.prototype._toHTML = function(txt) {
+  // TODO - is this native or prototypejs?
   return txt.escapeHTML().replace(/\n/g,"<br/>");
 };
 
