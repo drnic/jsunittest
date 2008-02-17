@@ -4,6 +4,8 @@ var JsUnitTest = {
   Version: '<%= APP_VERSION %>',
 };
 
+<%= include 'prototype/class.js' %>
+
 <%= include 'common.js' %>
 
 <%= include 'logger.js', 'message_template.js' %>
