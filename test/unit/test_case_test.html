@@ -54,6 +54,38 @@
     testPass: function() { with(this) {
       testcase.pass();
       assertEqual(1, testcase.assertions);
+      assertEqual('passed', testcase.status(), 'Should be equal');
+    }},
+    
+    // Info
+    testInfo: function() { with(this) {
+      testcase.info("xxx");
+      assertEqual(0, testcase.assertions);
+      assertEqual("Info: xxx", testcase.messages[0], 'Should be equal');
+      assertEqual('passed', testcase.status(), 'Should be equal');
+    }},
+
+    // Fail
+    testFail: function() { with(this) {
+      testcase.fail("xxx");
+      assertEqual(0, testcase.assertions, "Assertions");
+      assertEqual(1, testcase.failures, "Failures");
+      assertEqual("Failure: xxx", testcase.messages[0], 'Should be equal');
+      assertEqual('failed', testcase.status(), 'Should be equal');
+    }},
+
+    // Error
+    testError: function() { with(this) {
+      testcase.error({name: "name", message: "An Error"}, "xxx");
+      assertEqual(0, testcase.assertions, "Assertions");
+      assertEqual(1, testcase.errors, "Errors");
+      // TODO - assertEqual("name: xxx([object Object])", testcase.messages[0], 'Should be equal');
+      assertEqual('error', testcase.status(), 'Should be equal');
+    }},
+
+    // Message
+    testMessage: function() { with(this) {
+      // TODO
     }},
 
     
