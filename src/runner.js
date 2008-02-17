@@ -9,9 +9,10 @@ DrNicTest.Unit.Runner = function(testcases) {
   this.currentTest = 0;
   this.logger = new DrNicTest.Unit.Logger(options.testLog);
   
-  DrNicTest.Event.observe(window, "load", function() {
+  var self = this;
+  DrNicTest.Event.addEvent(window, "load", function() {
     setTimeout(function() {
-      this.runTests();
+      self.runTests();
     }, 0.1);
   });
 };
