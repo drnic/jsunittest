@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>JavaScript unit test file</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <script src="../assets/prototype.js" type="text/javascript"></script>
+  <script src="../assets/unittest.js" type="text/javascript"></script>
+  
+  <script src="../../src/common.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../../src/prototype/template.js" type="text/javascript"></script>
+  
+  <link rel="stylesheet" href="../assets/unittest.css" type="text/css" />
+</head>
+<body>
+
+<div id="content">
+
+  <div id="header">
+    <h1>JavaScript unit test file</h1>
+    <p>
+      This file tests <strong>template.js</strong>.
+    </p>
+  </div>
+
+  <!-- Log output (one per Runner, via {testLog: "testlog"} option)-->
+  <div id="testlog"></div>
+  
+  <!-- Put sample/test html here -->
+  <div id="sample"></div>
+</div>
+
+<script type="text/javascript">
+// <![CDATA[
+
+  new Test.Unit.Runner({
+    // Library
+    testLibrary: function() { with(this) {
+      assert(DrNicTest.Template);
+      assert(new DrNicTest.Template(""));
+    }},
+
+    // Empty string
+    testEmptyString: function() { with(this) {
+      assertEqual('', new DrNicTest.Template("").evaluate("asd"));
+    }},
+
+    testInterpolate: function() {with(this) {
+      var subject = { name: 'Stephan' };
+      var pattern = /(^|.|\r|\n)(#\((.*?)\))/;
+      assertEqual('#{name}: Stephan', new DrNicTest.Template('\\#{name}: #{name}').evaluate(subject));
+      // assertEqual('#{name}: Stephan', '\\#{name}: #{name}'.interpolate(subject));
+      // assertEqual('#(name): Stephan', '\\#(name): #(name)'.interpolate(subject, pattern));
+    }},
+    
+      
+  }); 
+// ]]>
+</script>
+</body>
+</html>

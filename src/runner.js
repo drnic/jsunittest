@@ -25,10 +25,15 @@ DrNicTest.Unit.Runner.prototype.getTests = function(testcases) {
       if (/^test/.match(testname)) tests.push(testname);
     }
   }
-  return tests.map(function(test) {
+  var results = [];
+  for (var i=0; i < tests.length; i++) {
+    var test = tests[i];
     if (testcases[test])
-      return new DrNicTest.Unit.Testcase(test, testcases[test], testcases.setup, testcases.teardown);
-  }).compact();
+      results.push(
+        new DrNicTest.Unit.Testcase(test, testcases[test], testcases.setup, testcases.teardown)
+      );
+  };
+  return results;
 };
 
 DrNicTest.Unit.Runner.prototype.getResult = function() {
@@ -49,6 +54,7 @@ DrNicTest.Unit.Runner.prototype.getResult = function() {
 
 DrNicTest.Unit.Runner.prototype.postResults = function() {
   if (this.options.resultsURL) {
+    // TODO replace prototype's Ajax.Request
     new Ajax.Request(this.options.resultsURL, 
       { method: 'get', parameters: this.getResult(), asynchronous: false });
   }
@@ -62,6 +68,7 @@ DrNicTest.Unit.Runner.prototype.runTests = function() {
   test.run();
   if(test.isWaiting) {
     this.logger.message("Waiting for " + test.timeToWait + "ms");
+    // TODO replace Function.bind
     setTimeout(this.runTests.bind(this), test.timeToWait || 1000);
     return;
   }
@@ -79,6 +86,7 @@ DrNicTest.Unit.Runner.prototype.finish = function() {
 };
 
 DrNicTest.Unit.Runner.prototype.summary = function() {
-  return '#{tests} tests, #{assertions} assertions, #{failures} failures, #{errors} errors'
-    .interpolate(this.getResult());
+  return new DrNicTest.Template('#{tests} tests, #{assertions} assertions, #{failures} failures, #{errors} errors').evaluate(this.getResult());
+  // return '#{tests} tests, #{assertions} assertions, #{failures} failures, #{errors} errors'
+  //   .interpolate(this.getResult());
 };
