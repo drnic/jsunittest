@@ -70,7 +70,7 @@
       testcase.fail("xxx");
       assertEqual(0, testcase.assertions, "Assertions");
       assertEqual(1, testcase.failures, "Failures");
-      assertEqual("Failure: xxx", testcase.messages[0], 'Should be equal');
+      assertMatch(/^Failure: xxx/, testcase.messages[0]);
       assertEqual('failed', testcase.status(), 'Should be equal');
     }},
 
