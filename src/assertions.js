@@ -174,7 +174,7 @@ DrNicTest.Unit.Assertions = {
   },
   
   _isVisible: function(element) {
-    element = $(element);
+    element = DrNicTest.$(element);
     if(!element.parentNode) return true;
     this.assertNotNull(element);
     if(element.style && Element.getStyle(element, 'display') == 'none')
@@ -201,7 +201,7 @@ DrNicTest.Unit.Assertions = {
       pass = false;
     }
     elements.zip(expressions).all(function(pair, index) {
-      var element = $(pair.first()), expression = pair.last();
+      var element = DrNicTest.$(pair.first()), expression = pair.last();
       if (element.match(expression)) return true;
       message = this.buildMessage('assertElementsMatch', 'In index <?>: expected <?> but got ?', index, expression, element);
       this.flunk(message);

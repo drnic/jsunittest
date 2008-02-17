@@ -4,7 +4,7 @@ DrNicTest.Unit.Runner = function(testcases) {
   }, arguments[1] || {});
   
   options.resultsURL = this.queryParams.resultsURL;
-  options.testLog = $(options.testLog);
+  options.testLog = DrNicTest.$(options.testLog);
   
   this.tests = this.getTests(testcases);
   this.currentTest = 0;

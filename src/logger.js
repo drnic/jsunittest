@@ -1,5 +1,5 @@
 DrNicTest.Unit.Logger = function(element) {
-  this.element = $(element);
+  this.element = DrNicTest.$(element);
   if (this.element) this._createLogTable();
 };
   
@@ -42,20 +42,19 @@ DrNicTest.Unit.Logger.prototype._createLogTable = function() {
   '<thead><tr><th>Status</th><th>Test</th><th>Message</th></tr></thead>' +
   '<tbody class="loglines"></tbody>' +
   '</table>';
-  this.element.update(html);
-  
+  this.element.innerHTML = html;
 };
   
 DrNicTest.Unit.Logger.prototype.appendActionButtons = function(actions) {
-  actions = $H(actions);
-  if (!actions.any()) return;
-  var div = new Element("div", {className: 'action_buttons'});
-  actions.inject(div, function(container, action) {
-    var button = new Element("input").setValue(action.key).observe("click", action.value);
-    button.type = "button";
-    return container.insert(button);
-  });
-  this.getMessageCell().insert(div);
+  // actions = $H(actions);
+  // if (!actions.any()) return;
+  // var div = new Element("div", {className: 'action_buttons'});
+  // actions.inject(div, function(container, action) {
+  //   var button = new Element("input").setValue(action.key).observe("click", action.value);
+  //   button.type = "button";
+  //   return container.insert(button);
+  // });
+  // this.getMessageCell().insert(div);
 };
   
 DrNicTest.Unit.Logger.prototype._toHTML = function(txt) {

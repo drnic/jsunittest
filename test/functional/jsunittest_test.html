@@ -56,9 +56,9 @@
 
   new DrNicTest.Unit.Runner({
     setup: function() {
-      var testcss1      = document.getElementById('testcss1');
-      var testcss1_span = document.getElementById('testcss1_span');
-      var tlist         = document.getElementById('tlist');
+      var testcss1      = DrNicTest.$('testcss1');
+      var testcss1_span = DrNicTest.$('testcss1_span');
+      var tlist         = DrNicTest.$('tlist');
     },
     
     testIsRunningFromRake:  function() { with(this) {
