@@ -49,8 +49,7 @@
       var subject = { name: 'Stephan' };
       var pattern = /(^|.|\r|\n)(#\((.*?)\))/;
       assertEqual('#{name}: Stephan', new DrNicTest.Template('\\#{name}: #{name}').evaluate(subject));
-      // assertEqual('#{name}: Stephan', '\\#{name}: #{name}'.interpolate(subject));
-      // assertEqual('#(name): Stephan', '\\#(name): #(name)'.interpolate(subject, pattern));
+      assertEqual('#(name): Stephan', new DrNicTest.Template('\\#(name): #(name)', pattern).evaluate(subject));
     }},
     
       
