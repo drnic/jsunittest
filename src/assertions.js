@@ -1,7 +1,9 @@
+// TODO replace $A, $H, [].zip([]), [].all
 DrNicTest.Unit.Assertions = {
   buildMessage: function(message, template) {
-    var args = $A(arguments).slice(2);
-    return (message ? message + '\n' : '') + new DrNicTest.Unit.MessageTemplate(template).evaluate(args);
+    var args = arguments.slice(2);
+    return (message ? message + '\n' : '') + 
+      new DrNicTest.Unit.MessageTemplate(template).evaluate(args);
   },
   
   flunk: function(message) {

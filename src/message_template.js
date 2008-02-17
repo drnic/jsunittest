@@ -7,7 +7,14 @@ DrNicTest.Unit.MessageTemplate = function(string) {
 };
 
 DrNicTest.Unit.MessageTemplate.prototype.evaluate = function(params) {
-  return this.parts.map(function(part) {
-    return part == '?' ? DrNicTest.Unit.inspect(params.shift()) : part.replace(/\\\?/, '?');
-  }).join('');
+  var results = [];
+  for (var i=0; i < this.parts.length; i++) {
+    var part = this.parts[i];
+    results.push(part == '?' ? DrNicTest.Unit.inspect(params.shift()) : part.replace(/\\\?/, '?');
+    }).join(''));
+  };
+  return results;
+  // return this.parts.map(function(part) {
+  //   return part == '?' ? DrNicTest.Unit.inspect(params.shift()) : part.replace(/\\\?/, '?');
+  // }).join('');
 };

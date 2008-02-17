@@ -8,6 +8,8 @@ DrNicTest.Unit.Runner = function(testcases) {
   this.tests = this.getTests(testcases);
   this.currentTest = 0;
   this.logger = new DrNicTest.Unit.Logger(options.testLog);
+  
+  // TODO replace Event.observer(window, "load")
   Event.observe(window, "load", function() {
     this.runTests.bind(this).delay(0.1);
   }.bind(this));
@@ -87,6 +89,4 @@ DrNicTest.Unit.Runner.prototype.finish = function() {
 
 DrNicTest.Unit.Runner.prototype.summary = function() {
   return new DrNicTest.Template('#{tests} tests, #{assertions} assertions, #{failures} failures, #{errors} errors').evaluate(this.getResult());
-  // return '#{tests} tests, #{assertions} assertions, #{failures} failures, #{errors} errors'
-  //   .interpolate(this.getResult());
 };
