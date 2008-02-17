@@ -15,7 +15,12 @@ DrNicTest.Unit.Runner = function(testcases) {
   }.bind(this));
 };
 
-DrNicTest.Unit.Runner.prototype.queryParams = window.location.search.parseQuery();
+DrNicTest.Unit.Runner.prototype.queryParams = function() {
+  if (window.location.search.length > 0) {
+    return window.location.search.parseQuery();    
+  }
+  return "";
+}();
 
 DrNicTest.Unit.Runner.prototype.getTests = function(testcases) {
   var tests = [], options = this.options;
