@@ -1,5 +1,5 @@
 DrNicTest.Template = function(template, pattern) {
-  this.template = template.toString();
+  this.template = template; //template.toString();
   this.pattern = pattern || DrNicTest.Template.Pattern;
 };
 

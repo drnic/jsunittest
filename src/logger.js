@@ -6,7 +6,7 @@ DrNicTest.Unit.Logger = function(element) {
 DrNicTest.Unit.Logger.prototype.start = function(testName) {
   if (!this.element) return;
   var tbody = this.element.getElementsByTagName('tbody')[0];
-  tbody.innerHTML = '<tr><td>' + testName + '</td><td></td><td></td></tr>';
+  tbody.innerHTML = tbody.innerHTML + '<tr><td>' + testName + '</td><td></td><td></td></tr>';
 };
   
 DrNicTest.Unit.Logger.prototype.setStatus = function(status) {

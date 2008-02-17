@@ -59,6 +59,9 @@
       var finalRows = tbody.getElementsByTagName('tr').length;
       assertEqual(initialRows + 1, finalRows, 'Should be new tr');
       assertEqual("some test", tbody.getElementsByTagName('td')[0].innerHTML);
+      logger.start("some test");
+      var finalRows = tbody.getElementsByTagName('tr').length;
+      assertEqual(initialRows + 1, finalRows, 'Should be 2 trs');
     }},
 
     // Set status should update current log line
