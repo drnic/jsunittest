@@ -9,10 +9,11 @@ DrNicTest.Unit.Runner = function(testcases) {
   this.currentTest = 0;
   this.logger = new DrNicTest.Unit.Logger(options.testLog);
   
-  // TODO replace Event.observer(window, "load")
-  Event.observe(window, "load", function() {
-    this.runTests.bind(this).delay(0.1);
-  }.bind(this));
+  DrNicTest.Event.observe(window, "load", function() {
+    setTimeout(function() {
+      this.runTests();
+    }, 0.1);
+  });
 };
 
 DrNicTest.Unit.Runner.prototype.queryParams = function() {

@@ -1,8 +1,8 @@
 DrNicTest.Unit.Testcase = function(name, test, setup, teardown) {
   this.name           = name;
-  this.test           = test     || Prototype.emptyFunction;
-  this.setup          = setup    || Prototype.emptyFunction;
-  this.teardown       = teardown || Prototype.emptyFunction;
+  this.test           = test     || function() {};
+  this.setup          = setup    || function() {};
+  this.teardown       = teardown || function() {};
   this.messages       = [];
   this.actions        = {};
 };
