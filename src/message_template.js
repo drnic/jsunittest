@@ -1,6 +1,6 @@
 DrNicTest.Unit.MessageTemplate = function(string) {
   var parts = [];
-  (string || '').scan(/(?=[^\\])\?|(?:\\\?|[^\?])+/, function(part) {
+  var str = DrNicTest.gsub((string || ''), /(?=[^\\])\?|(?:\\\?|[^\?])+/, function(part) {
     parts.push(part[0]);
   });
   this.parts = parts;
