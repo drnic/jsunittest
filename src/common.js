@@ -41,6 +41,15 @@ var DrNicTest = {
   escapeHTML: function(data) {
     return data.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   },
+  arrayfromargs: function(args) {
+  	var myarray = new Array();
+  	var i;
+
+  	for (i=0;i<args.length;i++)
+  		myarray[i] = args[i];
+
+  	return myarray;
+  },
   String: {
     interpret: function(value) {
       return value == null ? '' : String(value);
