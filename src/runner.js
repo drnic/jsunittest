@@ -1,8 +1,7 @@
 DrNicTest.Unit.Runner = function(testcases) {
-  var options = this.options = Object.extend({
-    testLog: 'testlog'
-  }, arguments[1] || {});
-  
+  var argumentOptions = arguments[1] || {};
+  var options = this.options = {};
+  options.testLog = ('testLog' in argumentOptions) ? argumentOptions.testLog : 'testlog';
   options.resultsURL = this.queryParams.resultsURL;
   options.testLog = DrNicTest.$(options.testLog);
   
@@ -17,12 +16,15 @@ DrNicTest.Unit.Runner = function(testcases) {
 DrNicTest.Unit.Runner.prototype.queryParams = window.location.search.parseQuery;
 
 DrNicTest.Unit.Runner.prototype.getTests = function(testcases) {
-  var tests, options = this.options;
+  var tests = [], options = this.options;
   if (this.queryParams.tests) tests = this.queryParams.tests.split(',');
   else if (options.tests) tests = options.tests;
   else if (options.test) tests = [option.test];
-  else tests = Object.keys(testcases).grep(/^test/);
-  
+  else {
+    for (testname in testcases) {
+      if (/^test/.match(testname)) tests.push(testname);
+    }
+  }
   return tests.map(function(test) {
     if (testcases[test])
       return new DrNicTest.Unit.Testcase(test, testcases[test], testcases.setup, testcases.teardown);
