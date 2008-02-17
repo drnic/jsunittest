@@ -5,11 +5,15 @@ DrNicTest.Unit.Logger = function(element) {
   
 DrNicTest.Unit.Logger.prototype.start = function(testName) {
   if (!this.element) return;
-  this.element.down('tbody').insert('<tr><td>' + testName + '</td><td></td><td></td></tr>');
+  var tbody = this.element.getElementsByTagName('tbody')[0];
+  tbody.innerHTML = '<tr><td>' + testName + '</td><td></td><td></td></tr>';
 };
   
 DrNicTest.Unit.Logger.prototype.setStatus = function(status) {
-  this.getLastLogLine().addClassName(status).down('td', 1).update(status);
+  var logline = this.getLastLogLine();
+  logline.className = 'status';
+  var statusCell = logline.getElementsByTagName('td')[1];
+  statusCell.innerHTML = status;
 };
   
 DrNicTest.Unit.Logger.prototype.finish = function(status, summary) {
@@ -29,7 +33,9 @@ DrNicTest.Unit.Logger.prototype.summary = function(summary) {
 };
   
 DrNicTest.Unit.Logger.prototype.getLastLogLine = function() {
-  return this.element.select('tr').last()
+  var tbody = this.element.getElementsByTagName('tbody')[0];
+  var loglines = tbody.getElementsByTagName('tr');
+  return loglines[loglines.length - 1];
 };
   
 DrNicTest.Unit.Logger.prototype.getMessageCell = function() {

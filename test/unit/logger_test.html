@@ -38,8 +38,9 @@
   new Test.Unit.Runner({
     // replace this with your real tests
     setup: function() {
-      this.testlog_test = DrNicTest.$('testlog_test');
       this.logger = new DrNicTest.Unit.Logger('testlog_test');
+      this.testlog_test = DrNicTest.$('testlog_test');
+      this.tbody = this.testlog_test.getElementsByTagName('tbody')[0];
     },
     
     // Initially
@@ -47,6 +48,25 @@
       var divs = testlog_test.getElementsByTagName('div');
       assertEqual("logsummary", divs[0].className, 'First div should be logsummary');
       assertEqual("running...", divs[0].innerHTML, 'First div should be logsummary');
+      var initialRows = tbody.getElementsByTagName('tr').length;
+      assertEqual(0, initialRows);
+    }},
+
+    // Logger start
+    testLoggerStart: function() { with(this) {
+      var initialRows = tbody.getElementsByTagName('tr').length;
+      logger.start("some test");
+      var finalRows = tbody.getElementsByTagName('tr').length;
+      assertEqual(initialRows + 1, finalRows, 'Should be new tr');
+      assertEqual("some test", tbody.getElementsByTagName('td')[0].innerHTML);
+    }},
+
+    // Set status should update current log line
+    testSetStatusShouldUpdateCurrentLogLine: function() { with(this) {
+      logger.start("some test");
+      logger.setStatus("some status");
+      logline = logger.getLastLogLine();
+      assertEqual("some status", logline.getElementsByTagName('td')[1].innerHTML);
     }},
 
     
