@@ -24,7 +24,8 @@ DrNicTest.Unit.Logger.prototype.finish = function(status, summary) {
   
 DrNicTest.Unit.Logger.prototype.message = function(message) {
   if (!this.element) return;
-  this.getMessageCell().update(this._toHTML(message));
+  var cell = this.getMessageCell();
+  cell.innerHTML = this._toHTML(message);
 };
   
 DrNicTest.Unit.Logger.prototype.summary = function(summary) {

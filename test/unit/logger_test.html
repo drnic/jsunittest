@@ -68,6 +68,14 @@
       logline = logger.getLastLogLine();
       assertEqual("some status", logline.getElementsByTagName('td')[1].innerHTML);
     }},
+    
+    // Message should update current log line
+    testMessageShouldUpdateCurrentLogLine: function() { with(this) {
+      logger.start("some test");
+      logger.message("some message");
+      logline = logger.getLastLogLine();
+      assertEqual("some message", logline.getElementsByTagName('td')[2].innerHTML);
+    }},
 
     // Summary
     testSummary: function() { with(this) {
