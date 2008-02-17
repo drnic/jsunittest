@@ -1,7 +1,9 @@
 DrNicTest.Event = {};
+DrNicTest.Event.cache = { };
 DrNicTest.Event.observe = function(element, eventName, handler) {
+  var cache = DrNicTest.Event.cache;
   function getDOMEventName(eventName) {
-    if (eventName && eventName.include(':')) return "dataavailable";
+    if (eventName && eventName.indexOf(':') > -1) return "dataavailable";
     return eventName;
   };
   
@@ -12,7 +14,7 @@ DrNicTest.Event.observe = function(element, eventName, handler) {
   }
 
   function getDOMEventName(eventName) {
-    if (eventName && eventName.include(':')) return "dataavailable";
+    if (eventName && eventName.indexOf(':') > -1) return "dataavailable";
     return eventName;
   }
 
@@ -28,7 +30,11 @@ DrNicTest.Event.observe = function(element, eventName, handler) {
   function createWrapper(element, eventName, handler) {
     var id = getEventID(element);
     var c = getWrappersForEventName(id, eventName);
-    if (c.pluck("handler").include(handler)) return false;
+    var handlers = [];
+    for (wrapper in c) {
+      handlers.push(wrapper.handler);
+    }
+    if (handlers.indexOf(handler) > -1) return false;
 
     var wrapper = function(event) {
       if (!Event || !Event.extend ||
@@ -44,7 +50,7 @@ DrNicTest.Event.observe = function(element, eventName, handler) {
     return wrapper;
   }
   
-  element = $(element);
+  element = DrNicTest.$(element);
   var name = getDOMEventName(eventName);
 
   var wrapper = createWrapper(element, eventName, handler);
