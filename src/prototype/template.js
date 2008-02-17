@@ -1,6 +1,6 @@
 DrNicTest.Template = function(template, pattern) {
   this.template = template.toString();
-  this.pattern = pattern || Template.Pattern;
+  this.pattern = pattern || DrNicTest.Template.Pattern;
 };
 
 DrNicTest.Template.prototype.evaluate = function(object) {
@@ -30,4 +30,4 @@ DrNicTest.Template.prototype.evaluate = function(object) {
   });
 }
 
-Template.Pattern = /(^|.|\r|\n)(#\{(.*?)\})/;
+DrNicTest.Template.Pattern = /(^|.|\r|\n)(#\{(.*?)\})/;

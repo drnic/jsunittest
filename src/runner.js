@@ -70,8 +70,10 @@ DrNicTest.Unit.Runner.prototype.runTests = function() {
   test.run();
   if(test.isWaiting) {
     this.logger.message("Waiting for " + test.timeToWait + "ms");
-    // TODO replace Function.bind
-    setTimeout(this.runTests.bind(this), test.timeToWait || 1000);
+    // setTimeout(this.runTests.bind(this), test.timeToWait || 1000);
+    setTimeout(function() {
+      this.runTests();
+    }, test.timeToWait || 1000);
     return;
   }
   
