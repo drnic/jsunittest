@@ -11,7 +11,7 @@ DrNicTest.Unit.Logger.prototype.start = function(testName) {
   
 DrNicTest.Unit.Logger.prototype.setStatus = function(status) {
   var logline = this.getLastLogLine();
-  logline.className = 'status';
+  logline.className = status;
   var statusCell = logline.getElementsByTagName('td')[1];
   statusCell.innerHTML = status;
 };
