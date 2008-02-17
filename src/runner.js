@@ -1,6 +1,4 @@
-DrNicTest.Unit.Runner = function() {};
-
-DrNicTest.Unit.Runner.prototype.initialize = function(testcases) {
+DrNicTest.Unit.Runner = function(testcases) {
   var options = this.options = Object.extend({
     testLog: 'testlog'
   }, arguments[1] || {});

@@ -1,5 +1,4 @@
-DrNicTest.Unit.MessageTemplate = function() {};
-DrNicTest.Unit.MessageTemplate.prototype.initialize = function(string) {
+DrNicTest.Unit.MessageTemplate = function(string) {
   var parts = [];
   (string || '').scan(/(?=[^\\])\?|(?:\\\?|[^\?])+/, function(part) {
     parts.push(part[0]);

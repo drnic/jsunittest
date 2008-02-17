@@ -1,5 +1,4 @@
-DrNicTest.Unit.Logger = function() {};
-DrNicTest.Unit.Logger.prototype.initialize = function(element) {
+DrNicTest.Unit.Logger = function(element) {
   this.element = $(element);
   if (this.element) this._createLogTable();
 };

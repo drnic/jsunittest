@@ -1,11 +1,4 @@
-DrNicTest.Unit.Testcase = function() {};
-// import DrNicTest.Unit.Assertions
-
-for (method in DrNicTest.Unit.Assertions) {
-  DrNicTest.Unit.Testcase.prototype[method] = DrNicTest.Unit.Assertions[method];
-}
-
-DrNicTest.Unit.Testcase.prototype.initialize = function(name, test, setup, teardown) {
+DrNicTest.Unit.Testcase = function(name, test, setup, teardown) {
   this.name           = name;
   this.test           = test     || Prototype.emptyFunction;
   this.setup          = setup    || Prototype.emptyFunction;
@@ -13,6 +6,11 @@ DrNicTest.Unit.Testcase.prototype.initialize = function(name, test, setup, teard
   this.messages       = [];
   this.actions        = {};
 };
+// import DrNicTest.Unit.Assertions
+
+for (method in DrNicTest.Unit.Assertions) {
+  DrNicTest.Unit.Testcase.prototype[method] = DrNicTest.Unit.Assertions[method];
+}
 
 DrNicTest.Unit.Testcase.prototype.isWaiting  = false;
 DrNicTest.Unit.Testcase.prototype.timeToWait = 1000;

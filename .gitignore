@@ -1,3 +1,4 @@
 dist
 pkg
 .DS_Store
+config/*.yml

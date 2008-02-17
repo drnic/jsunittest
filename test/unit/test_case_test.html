@@ -37,23 +37,28 @@
   new Test.Unit.Runner({
     // replace this with your real tests
     setup: function() {
-      
+      this.testcase = new DrNicTest.Unit.Testcase("name");
     },
     
-    teardown: function() {
-      
-    },
+    // Initial
+    testInitial: function() { with(this) {
+      assertEqual('name', testcase.name);
+      assertEqual(0, testcase.assertions);
+      assertEqual(0, testcase.failures);
+      assertEqual(0, testcase.errors);
+      assertEqual(0, testcase.messages.length);
+    }},
+
     
-    testTruth: function() { with(this) {
-      assert(true);
-    }}
+    // Pass
+    testPass: function() { with(this) {
+      testcase.pass();
+      assertEqual(1, testcase.assertions);
+    }},
+
+    
       
-  }, {testLog: "testlog"}); 
-  // For each Test.UnitRunner instance, specify the element id where results will be
-  // published; e.g. <div id="testlog"/> above.
-  // That is, you can have multiple "new Test.Unit.Runner() { ... }" on this page, just
-  // create more <div id="testlog2"></div> etc, and pass the element id to the hash above:
-  // e.g. {testLog: "testlog2"}
+  }); 
 // ]]>
 </script>
 </body>
