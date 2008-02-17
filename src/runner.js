@@ -29,7 +29,7 @@ DrNicTest.Unit.Runner.prototype.getTests = function(testcases) {
   else if (options.test) tests = [option.test];
   else {
     for (testname in testcases) {
-      if (/^test/.match(testname)) tests.push(testname);
+      if (testname.match(/^test/)) tests.push(testname);
     }
   }
   var results = [];
