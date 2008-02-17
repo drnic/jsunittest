@@ -1,5 +1,5 @@
-Test.Unit.MessageTemplate = function() {};
-Test.Unit.MessageTemplate.prototype.initialize = function(string) {
+DrNicTest.Unit.MessageTemplate = function() {};
+DrNicTest.Unit.MessageTemplate.prototype.initialize = function(string) {
   var parts = [];
   (string || '').scan(/(?=[^\\])\?|(?:\\\?|[^\?])+/, function(part) {
     parts.push(part[0]);
@@ -7,8 +7,8 @@ Test.Unit.MessageTemplate.prototype.initialize = function(string) {
   this.parts = parts;
 };
 
-Test.Unit.MessageTemplate.prototype.evaluate = function(params) {
+DrNicTest.Unit.MessageTemplate.prototype.evaluate = function(params) {
   return this.parts.map(function(part) {
-    return part == '?' ? Test.Unit.inspect(params.shift()) : part.replace(/\\\?/, '?');
+    return part == '?' ? DrNicTest.Unit.inspect(params.shift()) : part.replace(/\\\?/, '?');
   }).join('');
 };

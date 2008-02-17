@@ -1,43 +1,43 @@
-Test.Unit.Logger = function() {};
-Test.Unit.Logger.prototype.initialize = function(element) {
+DrNicTest.Unit.Logger = function() {};
+DrNicTest.Unit.Logger.prototype.initialize = function(element) {
   this.element = $(element);
   if (this.element) this._createLogTable();
 };
   
-Test.Unit.Logger.prototype.start = function(testName) {
+DrNicTest.Unit.Logger.prototype.start = function(testName) {
   if (!this.element) return;
   this.element.down('tbody').insert('<tr><td>' + testName + '</td><td></td><td></td></tr>');
 };
   
-Test.Unit.Logger.prototype.setStatus = function(status) {
+DrNicTest.Unit.Logger.prototype.setStatus = function(status) {
   this.getLastLogLine().addClassName(status).down('td', 1).update(status);
 };
   
-Test.Unit.Logger.prototype.finish = function(status, summary) {
+DrNicTest.Unit.Logger.prototype.finish = function(status, summary) {
   if (!this.element) return;
   this.setStatus(status);
   this.message(summary);
 };
   
-Test.Unit.Logger.prototype.message = function(message) {
+DrNicTest.Unit.Logger.prototype.message = function(message) {
   if (!this.element) return;
   this.getMessageCell().update(this._toHTML(message));
 };
   
-Test.Unit.Logger.prototype.summary = function(summary) {
+DrNicTest.Unit.Logger.prototype.summary = function(summary) {
   if (!this.element) return;
   this.element.down('div').update(this._toHTML(summary));
 };
   
-Test.Unit.Logger.prototype.getLastLogLine = function() {
+DrNicTest.Unit.Logger.prototype.getLastLogLine = function() {
   return this.element.select('tr').last()
 };
   
-Test.Unit.Logger.prototype.getMessageCell = function() {
+DrNicTest.Unit.Logger.prototype.getMessageCell = function() {
   return this.getLastLogLine().down('td', 2);
 };
   
-Test.Unit.Logger.prototype._createLogTable = function() {
+DrNicTest.Unit.Logger.prototype._createLogTable = function() {
   var html = '<div class="logsummary">running...</div>' +
   '<table class="logtable">' +
   '<thead><tr><th>Status</th><th>Test</th><th>Message</th></tr></thead>' +
@@ -47,7 +47,7 @@ Test.Unit.Logger.prototype._createLogTable = function() {
   
 };
   
-Test.Unit.Logger.prototype.appendActionButtons = function(actions) {
+DrNicTest.Unit.Logger.prototype.appendActionButtons = function(actions) {
   actions = $H(actions);
   if (!actions.any()) return;
   var div = new Element("div", {className: 'action_buttons'});
@@ -59,7 +59,7 @@ Test.Unit.Logger.prototype.appendActionButtons = function(actions) {
   this.getMessageCell().insert(div);
 };
   
-Test.Unit.Logger.prototype._toHTML = function(txt) {
+DrNicTest.Unit.Logger.prototype._toHTML = function(txt) {
   return txt.escapeHTML().replace(/\n/g,"<br/>");
 };
 

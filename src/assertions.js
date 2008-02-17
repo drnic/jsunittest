@@ -1,7 +1,7 @@
-Test.Unit.Assertions = {
+DrNicTest.Unit.Assertions = {
   buildMessage: function(message, template) {
     var args = $A(arguments).slice(2);
-    return (message ? message + '\n' : '') + new Test.Unit.MessageTemplate(template).evaluate(args);
+    return (message ? message + '\n' : '') + new DrNicTest.Unit.MessageTemplate(template).evaluate(args);
   },
   
   flunk: function(message) {

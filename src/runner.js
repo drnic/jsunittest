@@ -1,6 +1,6 @@
-Test.Unit.Runner = function() {};
+DrNicTest.Unit.Runner = function() {};
 
-Test.Unit.Runner.prototype.initialize = function(testcases) {
+DrNicTest.Unit.Runner.prototype.initialize = function(testcases) {
   var options = this.options = Object.extend({
     testLog: 'testlog'
   }, arguments[1] || {});
@@ -10,15 +10,15 @@ Test.Unit.Runner.prototype.initialize = function(testcases) {
   
   this.tests = this.getTests(testcases);
   this.currentTest = 0;
-  this.logger = new Test.Unit.Logger(options.testLog);
+  this.logger = new DrNicTest.Unit.Logger(options.testLog);
   Event.observe(window, "load", function() {
     this.runTests.bind(this).delay(0.1);
   }.bind(this));
 };
 
-Test.Unit.Runner.prototype.queryParams = window.location.search.parseQuery;
+DrNicTest.Unit.Runner.prototype.queryParams = window.location.search.parseQuery;
 
-Test.Unit.Runner.prototype.getTests = function(testcases) {
+DrNicTest.Unit.Runner.prototype.getTests = function(testcases) {
   var tests, options = this.options;
   if (this.queryParams.tests) tests = this.queryParams.tests.split(',');
   else if (options.tests) tests = options.tests;
@@ -27,11 +27,11 @@ Test.Unit.Runner.prototype.getTests = function(testcases) {
   
   return tests.map(function(test) {
     if (testcases[test])
-      return new Test.Unit.Testcase(test, testcases[test], testcases.setup, testcases.teardown);
+      return new DrNicTest.Unit.Testcase(test, testcases[test], testcases.setup, testcases.teardown);
   }).compact();
 };
 
-Test.Unit.Runner.prototype.getResult = function() {
+DrNicTest.Unit.Runner.prototype.getResult = function() {
   var results = {
     tests: this.tests.length,
     assertions: 0,
@@ -47,14 +47,14 @@ Test.Unit.Runner.prototype.getResult = function() {
   });
 };
 
-Test.Unit.Runner.prototype.postResults = function() {
+DrNicTest.Unit.Runner.prototype.postResults = function() {
   if (this.options.resultsURL) {
     new Ajax.Request(this.options.resultsURL, 
       { method: 'get', parameters: this.getResult(), asynchronous: false });
   }
 };
 
-Test.Unit.Runner.prototype.runTests = function() {
+DrNicTest.Unit.Runner.prototype.runTests = function() {
   var test = this.tests[this.currentTest], actions;
   
   if (!test) return this.finish();
@@ -73,12 +73,12 @@ Test.Unit.Runner.prototype.runTests = function() {
   this.runTests();
 };
 
-Test.Unit.Runner.prototype.finish = function() {
+DrNicTest.Unit.Runner.prototype.finish = function() {
   this.postResults();
   this.logger.summary(this.summary());
 };
 
-Test.Unit.Runner.prototype.summary = function() {
+DrNicTest.Unit.Runner.prototype.summary = function() {
   return '#{tests} tests, #{assertions} assertions, #{failures} failures, #{errors} errors'
     .interpolate(this.getResult());
 };
