@@ -4,10 +4,10 @@ DrNicTest.Template = function(template, pattern) {
 };
 
 DrNicTest.Template.prototype.evaluate = function(object) {
-  if (Object.isFunction(object.toTemplateReplacements))
+  if (typeof object.toTemplateReplacements == "function")
     object = object.toTemplateReplacements();
 
-  return this.template.gsub(this.pattern, function(match) {
+  return DrNicTest.gsub(this.template, this.pattern, function(match) {
     if (object == null) return '';
 
     var before = match[1] || '';
@@ -19,14 +19,14 @@ DrNicTest.Template.prototype.evaluate = function(object) {
     if (match == null) return before;
 
     while (match != null) {
-      var comp = match[1].startsWith('[') ? match[2].gsub('\\\\]', ']') : match[1];
+      var comp = (match[1].indexOf('[]') === 0) ? match[2].gsub('\\\\]', ']') : match[1];
       ctx = ctx[comp];
       if (null == ctx || '' == match[3]) break;
       expr = expr.substring('[' == match[3] ? match[1].length : match[0].length);
       match = pattern.exec(expr);
     }
 
-    return before + String.interpret(ctx);
+    return before + DrNicTest.String.interpret(ctx);
   });
 }
 

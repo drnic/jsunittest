@@ -53,12 +53,14 @@ DrNicTest.Unit.Runner.prototype.getResult = function() {
     errors: 0
   };
   
-  return this.tests.inject(results, function(results, test) {
+  var results = [];
+  for (var i=0; i < this.tests.length; i++) {
+    var test = this.tests[i];
     results.assertions += test.assertions;
     results.failures   += test.failures;
     results.errors     += test.errors;
-    return results;
-  });
+  };
+  return results;
 };
 
 DrNicTest.Unit.Runner.prototype.postResults = function() {

@@ -68,6 +68,6 @@ DrNicTest.Unit.Logger.prototype.appendActionButtons = function(actions) {
   
 DrNicTest.Unit.Logger.prototype._toHTML = function(txt) {
   // TODO - is this native or prototypejs?
-  return txt.escapeHTML().replace(/\n/g,"<br/>");
+  return DrNicTest.escapeHTML(txt).replace(/\n/g,"<br/>");
 };
 

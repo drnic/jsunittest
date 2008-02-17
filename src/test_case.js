@@ -45,7 +45,8 @@ DrNicTest.Unit.Testcase.prototype.run = function(rethrow) {
 
 DrNicTest.Unit.Testcase.prototype.summary = function() {
   var msg = '#{assertions} assertions, #{failures} failures, #{errors} errors\n';
-  return msg.interpolate(this) + this.messages.join("\n");
+  return new DrNicTest.Template(msg).evaluate(this) + 
+    this.messages.join("\n");
 };
 
 DrNicTest.Unit.Testcase.prototype.pass = function() {
