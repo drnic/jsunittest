@@ -1,4 +1,4 @@
-Unittest
+Jsunittest
 
 Description:
     This JavaScript project ...

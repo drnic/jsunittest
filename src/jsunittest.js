@@ -1,6 +1,6 @@
 <%= include 'HEADER' %>
 
-var UnitTest = {
+var JsUnitTest = {
   Version: '<%= APP_VERSION %>',
 };
 
