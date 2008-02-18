@@ -53,7 +53,6 @@ DrNicTest.Unit.Runner.prototype.getResult = function() {
     errors: 0
   };
   
-  var results = [];
   for (var i=0; i < this.tests.length; i++) {
     var test = this.tests[i];
     results.assertions += test.assertions;
