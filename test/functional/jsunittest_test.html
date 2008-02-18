@@ -170,19 +170,19 @@
       //assertNotVisible('testcss2', "Due to a Safari bug, this test fails in Safari.");
       
       // Element.hide('testcss1');
-      testcss1.display = "none";
+      testcss1.style.display = "none";
       assertNotVisible('testcss1');
       assertNotVisible('testcss1_span');
       // Element.show('testcss1');
-      testcss1.display = "block";
+      testcss1.style.display = "block";
       assertVisible('testcss1');
       assertNotVisible('testcss1_span');
       
       // Element.show('testcss1_span');
-      testcss1_span.display = "block";
+      testcss1_span.style.display = "block";
       assertVisible('testcss1_span');
       // Element.hide('testcss1');
-      testcss1.display = "none";
+      testcss1.style.display = "none";
       assertNotVisible('testcss1_span'); // hidden by parent
     }},
 
