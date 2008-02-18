@@ -150,6 +150,32 @@ var DrNicTest = {
 
     return match;
   },
+  toQueryParams: function(query, separator) {
+    var query = query || window.location.search;
+    var match = query.replace(/^\s+/, '').replace(/\s+$/, '').match(/([^?#]*)(#.*)?$/);
+    if (!match) return { };
+
+    var hash = {};
+    var parts = match[1].split(separator || '&');
+    for (var i=0; i < parts.length; i++) {
+      var pair = parts[i].split('=');
+      if (pair[0]) {
+        var key = decodeURIComponent(pair.shift());
+        var value = pair.length > 1 ? pair.join('=') : pair[0];
+        if (value != undefined) value = decodeURIComponent(value);
+
+        if (key in hash) {
+          var object = hash[key];
+          var isArray = object != null && typeof object == "object" &&
+            'splice' in object && 'join' in object
+          if (!isArray) hash[key] = [hash[key]];
+          hash[key].push(value);
+        }
+        else hash[key] = value;
+      }
+    };
+    return hash;
+  },
   
   String: {
     interpret: function(value) {

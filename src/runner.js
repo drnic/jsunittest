@@ -17,12 +17,17 @@ DrNicTest.Unit.Runner = function(testcases) {
   });
 };
 
-DrNicTest.Unit.Runner.prototype.queryParams = function() {
+DrNicTest.Unit.Runner.prototype.queryParams = DrNicTest.toQueryParams();
+
+DrNicTest.Unit.Runner.prototype.portNumber = function() {
   if (window.location.search.length > 0) {
-    return window.location.search.parseQuery();    
+    var matches = window.location.search.match(/\:(\d{3,5})\//);
+    if (matches) {
+      return parseInt(matches[1]);
+    }
   }
-  return "";
-}();
+  return null;
+};
 
 DrNicTest.Unit.Runner.prototype.getTests = function(testcases) {
   var tests = [], options = this.options;
@@ -64,9 +69,17 @@ DrNicTest.Unit.Runner.prototype.getResult = function() {
 
 DrNicTest.Unit.Runner.prototype.postResults = function() {
   if (this.options.resultsURL) {
-    // TODO replace prototype's Ajax.Request
-    new Ajax.Request(this.options.resultsURL, 
-      { method: 'get', parameters: this.getResult(), asynchronous: false });
+    // new Ajax.Request(this.options.resultsURL, 
+    //   { method: 'get', parameters: this.getResult(), asynchronous: false });
+    var results = this.getResult();
+    var url = this.options.resultsURL + "?";
+    url += "assertions="+ results.assertions + "&";
+    url += "failures="  + results.failures + "&";
+    url += "errors="    + results.errors;
+    DrNicTest.ajax({
+      url: url,
+      type: 'GET'      
+    })
   }
 };
 

@@ -8,7 +8,7 @@ var JsUnitTest = {
 
 <%= include 'prototype/template.js', 'prototype/event.js' %>
 
-<%= include 'logger.js', 'message_template.js' %>
+<%= include 'logger.js', 'message_template.js', 'ajax.js' %>
 <%= include 'assertions.js' %>
 <%= include 'runner.js', 'test_case.js' %>
 
