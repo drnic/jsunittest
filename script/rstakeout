@@ -90,7 +90,6 @@ loop do
         $~[2].to_i > 0 ? growl_fail(output) : growl_pass(output)
       end
     end
-    # TODO Generic growl notification for other actions
 
     puts "=> done"
   end
