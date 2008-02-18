@@ -207,7 +207,6 @@ DrNicTest.Unit.Assertions = {
     this.assertBlock(message, function() { return !this._isVisible(element) });
   },
   
-  // TODO assertElementsMatch
   assertElementsMatch: function() {
     var pass = true, expressions = DrNicTest.arrayfromargs(arguments);
     var elements = expressions.shift();
