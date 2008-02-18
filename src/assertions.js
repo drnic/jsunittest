@@ -33,11 +33,12 @@ DrNicTest.Unit.Assertions = {
   
   assertEnumEqual: function(expected, actual, message) {
     message = this.buildMessage(message || 'assertEnumEqual', 'expected <?>, actual: <?>', expected, actual);
+    var flatExpected = DrNicTest.flattenArray(expected);
+    var flatActual   = DrNicTest.flattenArray(actual);
     this.assertBlock(message, function() {
-      if (expected.length == actual.length) {
+      if (flatExpected.length == flatActual.length) {
         for (var i=0; i < expected.length; i++) {
-          var e = expected[i]; a = actual[i];
-          if (e != a) return false;
+          if (flatExpected[i] != flatActual[i]) return false;
         };
         return true;
       }
@@ -47,11 +48,12 @@ DrNicTest.Unit.Assertions = {
   
   assertEnumNotEqual: function(expected, actual, message) {
     message = this.buildMessage(message || 'assertEnumNotEqual', '<?> was the same as <?>', expected, actual);
+    var flatExpected = DrNicTest.flattenArray(expected);
+    var flatActual   = DrNicTest.flattenArray(actual);
     this.assertBlock(message, function() {
-      if (expected.length == actual.length) {
+      if (flatExpected.length == flatActual.length) {
         for (var i=0; i < expected.length; i++) {
-          var e = expected[i]; a = actual[i];
-          if (e != a) return true;
+          if (flatExpected[i] != flatActual[i]) return true;
         };
         return false;
       }
@@ -60,24 +62,17 @@ DrNicTest.Unit.Assertions = {
   },
   
   assertHashEqual: function(expected, actual, message) {
-    var expected_array = expected.toArray().sort(), actual_array = actual.toArray().sort();
+    var expected_array = DrNicTest.hashToSortedArray(expected);
+    var actual_array   = DrNicTest.hashToSortedArray(actual);
     message = this.buildMessage(message || 'assertHashEqual', 'expected <?>, actual: <?>', expected, actual);
-    // from now we recursively zip & compare nested arrays
     var block = function() {
-      // TODO assertHashEqual
       if (expected_array.length == actual_array.length) {
         for (var i=0; i < expected.length; i++) {
-          var e = expected[i]; a = actual[i];
-          if (e != a) return false;
+          if (expected[i][0] != actual[i][0] || expected[i][1] != actual[i][1]) return false;
         };
         return true;
       }
       return false;
-      // return expected_array.length == actual_array.length && 
-      //   expected_array.zip(actual_array).all(function(pair) {
-      //     return pair.all(Object.isArray) ?
-      //       pair[0].zip(pair[1]).all(arguments.callee) : pair[0] == pair[1];
-      //   });
     };
     this.assertBlock(message, block);
   },

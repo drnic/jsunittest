@@ -60,6 +60,27 @@ var DrNicTest = {
 
   	return myarray;
   },
+  hashToSortedArray: function(hash) {
+    var results = [];
+    for (key in hash) {
+      results.push([key, hash[key]]);
+    }
+    return results.sort();
+  },
+  flattenArray: function(array) {
+    var results = arguments[1] || [];
+    for (var i=0; i < array.length; i++) {
+      var object = array[i];
+      if (object != null && typeof object == "object" &&
+        'splice' in object && 'join' in object) {
+          this.flattenArray(object, results);
+      } else {
+        results.push(object);
+      }
+    };
+    return results;
+  },
+  
   String: {
     interpret: function(value) {
       return value == null ? '' : String(value);
