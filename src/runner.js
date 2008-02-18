@@ -76,11 +76,12 @@ DrNicTest.Unit.Runner.prototype.runTests = function() {
   if (!test) return this.finish();
   if (!test.isWaiting) this.logger.start(test.name);
   test.run();
+  var self = this;
   if(test.isWaiting) {
     this.logger.message("Waiting for " + test.timeToWait + "ms");
     // setTimeout(this.runTests.bind(this), test.timeToWait || 1000);
     setTimeout(function() {
-      this.runTests();
+      self.runTests();
     }, test.timeToWait || 1000);
     return;
   }
