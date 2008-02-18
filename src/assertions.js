@@ -1,4 +1,3 @@
-// TODO replace $A, $H, [].zip([]), [].all
 DrNicTest.Unit.Assertions = {
   buildMessage: function(message, template) {
     var args = DrNicTest.arrayfromargs(arguments).slice(2);
@@ -33,12 +32,12 @@ DrNicTest.Unit.Assertions = {
   
   assertEnumEqual: function(expected, actual, message) {
     message = this.buildMessage(message || 'assertEnumEqual', 'expected <?>, actual: <?>', expected, actual);
-    var flatExpected = DrNicTest.flattenArray(expected);
-    var flatActual   = DrNicTest.flattenArray(actual);
+    var expected_array = DrNicTest.flattenArray(expected);
+    var actual_array   = DrNicTest.flattenArray(actual);
     this.assertBlock(message, function() {
-      if (flatExpected.length == flatActual.length) {
-        for (var i=0; i < expected.length; i++) {
-          if (flatExpected[i] != flatActual[i]) return false;
+      if (expected_array.length == actual_array.length) {
+        for (var i=0; i < expected_array.length; i++) {
+          if (expected_array[i] != actual_array[i]) return false;
         };
         return true;
       }
@@ -48,12 +47,12 @@ DrNicTest.Unit.Assertions = {
   
   assertEnumNotEqual: function(expected, actual, message) {
     message = this.buildMessage(message || 'assertEnumNotEqual', '<?> was the same as <?>', expected, actual);
-    var flatExpected = DrNicTest.flattenArray(expected);
-    var flatActual   = DrNicTest.flattenArray(actual);
+    var expected_array = DrNicTest.flattenArray(expected);
+    var actual_array   = DrNicTest.flattenArray(actual);
     this.assertBlock(message, function() {
-      if (flatExpected.length == flatActual.length) {
-        for (var i=0; i < expected.length; i++) {
-          if (flatExpected[i] != flatActual[i]) return true;
+      if (expected_array.length == actual_array.length) {
+        for (var i=0; i < expected_array.length; i++) {
+          if (expected_array[i] != actual_array[i]) return true;
         };
         return false;
       }
@@ -62,13 +61,13 @@ DrNicTest.Unit.Assertions = {
   },
   
   assertHashEqual: function(expected, actual, message) {
-    var expected_array = DrNicTest.hashToSortedArray(expected);
-    var actual_array   = DrNicTest.hashToSortedArray(actual);
     message = this.buildMessage(message || 'assertHashEqual', 'expected <?>, actual: <?>', expected, actual);
+    var expected_array = DrNicTest.flattenArray(DrNicTest.hashToSortedArray(expected));
+    var actual_array   = DrNicTest.flattenArray(DrNicTest.hashToSortedArray(actual));
     var block = function() {
       if (expected_array.length == actual_array.length) {
-        for (var i=0; i < expected.length; i++) {
-          if (expected[i][0] != actual[i][0] || expected[i][1] != actual[i][1]) return false;
+        for (var i=0; i < expected_array.length; i++) {
+          if (expected_array[i] != actual_array[i]) return false;
         };
         return true;
       }
@@ -77,17 +76,19 @@ DrNicTest.Unit.Assertions = {
     this.assertBlock(message, block);
   },
   
-  // TODO assertHashNotEqual
   assertHashNotEqual: function(expected, actual, message) {
-    var expected_array = expected.toArray().sort(), actual_array = actual.toArray().sort();
     message = this.buildMessage(message || 'assertHashNotEqual', '<?> was the same as <?>', expected, actual);
+    var expected_array = DrNicTest.flattenArray(DrNicTest.hashToSortedArray(expected));
+    var actual_array   = DrNicTest.flattenArray(DrNicTest.hashToSortedArray(actual));
     // from now we recursively zip & compare nested arrays
     var block = function() {
-      return !(expected_array.length == actual_array.length && 
-        expected_array.zip(actual_array).all(function(pair) {
-          return pair.all(Object.isArray) ?
-            pair[0].zip(pair[1]).all(arguments.callee) : pair[0] == pair[1];
-        }));
+      if (expected_array.length == actual_array.length) {
+        for (var i=0; i < expected_array.length; i++) {
+          if (expected_array[i] != actual_array[i]) return true;
+        };
+        return false;
+      }
+      return true;
     };
     this.assertBlock(message, block);
   },
