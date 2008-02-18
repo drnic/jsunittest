@@ -275,7 +275,7 @@ class JavaScriptTestTask < ::Rake::TaskLib
     @port = port
     @queue = Queue.new
 
-    @server = WEBrick::HTTPServer.new(:Port => @port) # TODO: make port configurable
+    @server = WEBrick::HTTPServer.new(:Port => @port)
     @server.mount_proc("/results") do |req, res|
       @queue.push({
         :tests => req.query['tests'].to_i,

@@ -17,7 +17,8 @@ DrNicTest.Unit.Testcase.prototype.timeToWait = 1000;
 DrNicTest.Unit.Testcase.prototype.assertions = 0;
 DrNicTest.Unit.Testcase.prototype.failures   = 0;
 DrNicTest.Unit.Testcase.prototype.errors     = 0;
-DrNicTest.Unit.Testcase.prototype.isRunningFromRake = window.location.port == 4711; // TODO port # independent
+// DrNicTest.Unit.Testcase.prototype.isRunningFromRake = window.location.port == 4711;
+DrNicTest.Unit.Testcase.prototype.isRunningFromRake = window.location.port;
 
 DrNicTest.Unit.Testcase.prototype.wait = function(time, nextPart) {
   this.isWaiting = true;
