@@ -33,8 +33,6 @@ DrNicTest.Unit.Assertions = {
   },
   
   assertEnumEqual: function(expected, actual, message) {
-    expected = $A(expected);
-    actual = $A(actual);
     message = this.buildMessage(message || 'assertEnumEqual', 'expected <?>, actual: <?>', expected, actual);
     this.assertBlock(message, function() {
       return expected.length == actual.length && expected.zip(actual).all(function(pair) { return pair[0] == pair[1] });
@@ -42,8 +40,6 @@ DrNicTest.Unit.Assertions = {
   },
   
   assertEnumNotEqual: function(expected, actual, message) {
-    expected = $A(expected);
-    actual = $A(actual);
     message = this.buildMessage(message || 'assertEnumNotEqual', '<?> was the same as <?>', expected, actual);
     this.assertBlock(message, function() {
       return expected.length != actual.length || expected.zip(actual).any(function(pair) { return pair[0] != pair[1] });
@@ -51,8 +47,6 @@ DrNicTest.Unit.Assertions = {
   },
   
   assertHashEqual: function(expected, actual, message) {
-    expected = $H(expected);
-    actual = $H(actual);
     var expected_array = expected.toArray().sort(), actual_array = actual.toArray().sort();
     message = this.buildMessage(message || 'assertHashEqual', 'expected <?>, actual: <?>', expected, actual);
     // from now we recursively zip & compare nested arrays
@@ -67,8 +61,6 @@ DrNicTest.Unit.Assertions = {
   },
   
   assertHashNotEqual: function(expected, actual, message) {
-    expected = $H(expected);
-    actual = $H(actual);
     var expected_array = expected.toArray().sort(), actual_array = actual.toArray().sort();
     message = this.buildMessage(message || 'assertHashNotEqual', '<?> was the same as <?>', expected, actual);
     // from now we recursively zip & compare nested arrays
