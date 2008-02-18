@@ -38,6 +38,10 @@ var DrNicTest = {
     }
     return result;
   },
+  scan: function(source, pattern, iterator) {
+    this.gsub(source, pattern, iterator);
+    return String(source);
+  },
   escapeHTML: function(data) {
     return data.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   },

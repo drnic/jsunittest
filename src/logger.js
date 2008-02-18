@@ -66,8 +66,7 @@ DrNicTest.Unit.Logger.prototype.appendActionButtons = function(actions) {
   // this.getMessageCell().insert(div);
 };
   
-DrNicTest.Unit.Logger.prototype._toHTML = function(txt) {
-  // TODO - is this native or prototypejs?
+DrNicTest.Unit.Logger.prototype._toHTML = function(txt) {  // TODO - is this native or prototypejs?
   return DrNicTest.escapeHTML(txt).replace(/\n/g,"<br/>");
 };
 

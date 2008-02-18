@@ -2,6 +2,7 @@
 DrNicTest.Unit.Assertions = {
   buildMessage: function(message, template) {
     var args = DrNicTest.arrayfromargs(arguments).slice(2);
+    console.log(args);
     return (message ? message + '\n' : '') + 
       new DrNicTest.Unit.MessageTemplate(template).evaluate(args);
   },
@@ -34,15 +35,30 @@ DrNicTest.Unit.Assertions = {
   
   assertEnumEqual: function(expected, actual, message) {
     message = this.buildMessage(message || 'assertEnumEqual', 'expected <?>, actual: <?>', expected, actual);
+    console.log(message);
     this.assertBlock(message, function() {
-      return expected.length == actual.length && expected.zip(actual).all(function(pair) { return pair[0] == pair[1] });
+      if (expected.length == actual.length) {
+        for (var i=0; i < expected.length; i++) {
+          var e = expected[i]; a = actual[i];
+          if (e != a) return false;
+        };
+        return true;
+      }
+      return false;
     });
   },
   
   assertEnumNotEqual: function(expected, actual, message) {
     message = this.buildMessage(message || 'assertEnumNotEqual', '<?> was the same as <?>', expected, actual);
     this.assertBlock(message, function() {
-      return expected.length != actual.length || expected.zip(actual).any(function(pair) { return pair[0] != pair[1] });
+      if (expected.length == actual.length) {
+        for (var i=0; i < expected.length; i++) {
+          var e = expected[i]; a = actual[i];
+          if (e != a) return true;
+        };
+        return false;
+      }
+      return true;
     });
   },
   
@@ -51,15 +67,25 @@ DrNicTest.Unit.Assertions = {
     message = this.buildMessage(message || 'assertHashEqual', 'expected <?>, actual: <?>', expected, actual);
     // from now we recursively zip & compare nested arrays
     var block = function() {
-      return expected_array.length == actual_array.length && 
-        expected_array.zip(actual_array).all(function(pair) {
-          return pair.all(Object.isArray) ?
-            pair[0].zip(pair[1]).all(arguments.callee) : pair[0] == pair[1];
-        });
+      // TODO assertHashEqual
+      if (expected_array.length == actual_array.length) {
+        for (var i=0; i < expected.length; i++) {
+          var e = expected[i]; a = actual[i];
+          if (e != a) return false;
+        };
+        return true;
+      }
+      return false;
+      // return expected_array.length == actual_array.length && 
+      //   expected_array.zip(actual_array).all(function(pair) {
+      //     return pair.all(Object.isArray) ?
+      //       pair[0].zip(pair[1]).all(arguments.callee) : pair[0] == pair[1];
+      //   });
     };
     this.assertBlock(message, block);
   },
   
+  // TODO assertHashNotEqual
   assertHashNotEqual: function(expected, actual, message) {
     var expected_array = expected.toArray().sort(), actual_array = actual.toArray().sort();
     message = this.buildMessage(message || 'assertHashNotEqual', '<?> was the same as <?>', expected, actual);
@@ -172,7 +198,7 @@ DrNicTest.Unit.Assertions = {
     element = DrNicTest.$(element);
     if(!element.parentNode) return true;
     this.assertNotNull(element);
-    if(element.style && Element.getStyle(element, 'display') == 'none')
+    if(element.style && element.style.display == 'none')
       return false;
     
     return arguments.callee.call(this, element.parentNode);
@@ -188,6 +214,7 @@ DrNicTest.Unit.Assertions = {
     this.assertBlock(message, function() { return !this._isVisible(element) });
   },
   
+  // TODO assertElementsMatch
   assertElementsMatch: function() {
     var pass = true, expressions = $A(arguments), elements = $A(expressions.shift());
     if (elements.length != expressions.length) {
