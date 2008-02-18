@@ -3,6 +3,9 @@ DrNicTest.Unit.MessageTemplate = function(string) {
   var str = DrNicTest.gsub((string || ''), /(?=[^\\])\?|(?:\\\?|[^\?])+/, function(part) {
     parts.push(part[0]);
   });
+  // (string || '').scan(/(?=[^\\])\?|(?:\\\?|[^\?])+/, function(part) {
+  //   parts.push(part[0]);
+  // });
   this.parts = parts;
 };
 
