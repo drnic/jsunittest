@@ -2,35 +2,37 @@ h1. jsunittest
 
 h2. What
 
-This JavaScript project ...
+This JavaScript project provides a one-file JavaScript test suite.
+
+This is based off unittest.js from "prototypejs":http://prototypejs.org, except this library has no dependency on prototype.js so there is no chance your code-under-test can conflict with prototype.js or that you might accidently use a prototype.js helper for a library that will be deployed independently off prototypejs.
 
 h2. Downloading
 
-<a href="dist/jsunittest.js">jsunittest.js</a>
-
+Get the latest here: <a href="dist/jsunittest.js">jsunittest.js</a>
 
 h2. The basics
 
+Whereever you were testing with unittest.js, drop in <a href="dist/jsunittest.js">jsunittest.js</a> instead (and update your <code><script src="../assets/unittest.js"...></code> to use <code>jsunittest.js</code>).
 
-h2. Demonstration of usage
+h2. Same API as unittest.js
 
+<img src="images/passing_prototypejs_unittest_tests.jpg" width="709" height="573" alt="Passing Prototypejs Unittest Tests">
 
+h2. How to do JavaScript unit testing
+
+* "newjs":http://newjs.rubyforge.org - started new JavaScript projects with in-built test suite
+* "Autotest for Javascript":http://drnicwilliams.com/2008/01/04/autotesting-javascript-in-rails/ - ideas on a script/js_autotest script (built-in to newjs)
 
 h2. Forum
 
-"http://groups.google.com/group/jsunittest":http://groups.google.com/group/jsunittest
+"http://groups.google.com/group/drnic-javascript-projects":http://groups.google.com/group/drnic-javascript-projects
 
-TODO - create Google Group - jsunittest
 
 h2. How to submit patches
 
 Read the "8 steps for fixing other people's code":http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/ and for section "8b: Submit patch to Google Groups":http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/#8b-google-groups, use the Google Group above.
 
-The trunk repository is <code>svn://rubyforge.org/var/svn/jsunittest/trunk</code> for anonymous access.
-
-OR
-
-The source project is a "Git":http://git.or.cz/ repository. See Dr Nic Williams's "master branch":http://github.com/nicwilliams/jsunittest/tree/master for clone/checkout details.
+The source project is a "Git":http://git.or.cz/ repository. See Dr Nic's "master branch":http://github.com/drnic/jsunittest/tree/master for clone/checkout details.
 
 
 h2. License
@@ -39,5 +41,5 @@ This code is free to use under the terms of the MIT license.
 
 h2. Contact
 
-Comments are welcome. Send an email to "Dr Nic Williams":mailto:drnicwilliams@gmail.com via the "forum":http://groups.google.com/group/jsunittest
+Comments are welcome. Send an email to "Dr Nic Williams":mailto:drnicwilliams@gmail.com via the "forum":http://groups.google.com/group/drnic-javascript-projects
 
