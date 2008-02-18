@@ -80,6 +80,76 @@ var DrNicTest = {
     };
     return results;
   },
+  selectorMatch: function(expression, element) {
+    var tokens = [];
+    var patterns = {
+      // combinators must be listed first
+      // (and descendant needs to be last combinator)
+      laterSibling: /^\s*~\s*/,
+      child:        /^\s*>\s*/,
+      adjacent:     /^\s*\+\s*/,
+      descendant:   /^\s/,
+
+      // selectors follow
+      tagName:      /^\s*(\*|[\w\-]+)(\b|$)?/,
+      id:           /^#([\w\-\*]+)(\b|$)/,
+      className:    /^\.([\w\-\*]+)(\b|$)/,
+      pseudo:
+  /^:((first|last|nth|nth-last|only)(-child|-of-type)|empty|checked|(en|dis)abled|not)(\((.*?)\))?(\b|$|(?=\s|[:+~>]))/,
+      attrPresence: /^\[((?:[\w]+:)?[\w]+)\]/,
+      attr:         /\[((?:[\w-]*:)?[\w-]+)\s*(?:([!^$*~|]?=)\s*((['"])([^\4]*?)\4|([^'"][^\]]*?)))?\]/
+    };
+
+    var assertions = {
+      tagName: function(element, matches) {
+        return matches[1].toUpperCase() == element.tagName.toUpperCase();
+      },
+
+      className: function(element, matches) {
+        return Element.hasClassName(element, matches[1]);
+      },
+
+      id: function(element, matches) {
+        return element.id === matches[1];
+      },
+
+      attrPresence: function(element, matches) {
+        return Element.hasAttribute(element, matches[1]);
+      },
+
+      attr: function(element, matches) {
+        var nodeValue = Element.readAttribute(element, matches[1]);
+        return nodeValue && operators[matches[2]](nodeValue, matches[5] || matches[6]);
+      }
+    };
+    var e = this.expression, ps = patterns, as = assertions;
+    var le, p, m;
+
+    while (e && le !== e && (/\S/).test(e)) {
+      le = e;
+      for (var i in ps) {
+        p = ps[i];
+        if (m = e.match(p)) {
+          // use the Selector.assertions methods unless the selector
+          // is too complex.
+          if (as[i]) {
+            tokens.push([i, Object.clone(m)]);
+            e = e.replace(m[0], '');
+          }
+        }
+      }
+    }
+
+    var match = true, name, matches;
+    for (var i = 0, token; token = tokens[i]; i++) {
+      name = token[0], matches = token[1];
+      if (!assertions[name](element, matches)) {
+        match = false; break;
+      }
+    }
+
+    return match;
+  },
   
   String: {
     interpret: function(value) {

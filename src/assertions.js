@@ -209,21 +209,25 @@ DrNicTest.Unit.Assertions = {
   
   // TODO assertElementsMatch
   assertElementsMatch: function() {
-    var pass = true, expressions = $A(arguments), elements = $A(expressions.shift());
+    var pass = true, expressions = DrNicTest.arrayfromargs(arguments);
+    var elements = expressions.shift();
     if (elements.length != expressions.length) {
       message = this.buildMessage('assertElementsMatch', 'size mismatch: ? elements, ? expressions (?).', elements.length, expressions.length, expressions);
       this.flunk(message);
       pass = false;
     }
-    elements.zip(expressions).all(function(pair, index) {
-      var element = DrNicTest.$(pair.first()), expression = pair.last();
-      if (element.match(expression)) return true;
+    for (var i=0; i < expressions.length; i++) {
+      var expression = expressions[i];
+      var element    = DrNicTest.$(elements[i]);
+      if (DrNicTest.selectorMatch(expression, element)) {
+        pass = true;
+        break;
+      }
       message = this.buildMessage('assertElementsMatch', 'In index <?>: expected <?> but got ?', index, expression, element);
       this.flunk(message);
       pass = false;
-    }.bind(this))
-    
-    if (pass) this.assert(true, "Expected all elements to match.");
+    };
+    this.assert(pass, "Expected all elements to match.");
   },
   
   assertElementMatches: function(element, expression, message) {
