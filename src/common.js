@@ -5,11 +5,11 @@ var DrNicTest = {
       if (typeof object == "undefined") return 'undefined';
       if (object === null) return 'null';
       if (typeof object == "string") {
+        var useDoubleQuotes = arguments[1];
         var escapedString = this.gsub(object, /[\x00-\x1f\\]/, function(match) {
           var character = String.specialChar[match[0]];
           return character ? character : '\\u00' + match[0].charCodeAt().toPaddedString(2, 16);
         });
-        var useDoubleQuotes = arguments[1];
         if (useDoubleQuotes) return '"' + escapedString.replace(/"/g, '\\"') + '"';
         return "'" + escapedString.replace(/'/g, '\\\'') + "'";
       };
