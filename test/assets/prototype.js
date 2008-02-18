@@ -106,11 +106,11 @@ Object.extend = function(destination, source) {
 };
 
 Object.extend(Object, {
-  DrNicTest.inspect: function(object) {
+  inspect: function(object) {
     try {
       if (Object.isUndefined(object)) return 'undefined';
       if (object === null) return 'null';
-      return object.DrNicTest.inspect ? object.DrNicTest.inspect() : String(object);
+      return object.inspect ? object.inspect() : String(object);
     } catch (e) {
       if (e instanceof RangeError) return '...';
       throw e;
@@ -467,7 +467,7 @@ Object.extend(String.prototype, {
     return this.gsub(/_/,'-');
   },
 
-  DrNicTest.inspect: function(useDoubleQuotes) {
+  inspect: function(useDoubleQuotes) {
     var escapedString = this.gsub(/[\x00-\x1f\\]/, function(match) {
       var character = String.specialChar[match[0]];
       return character ? character : '\\u00' + match[0].charCodeAt().toPaddedString(2, 16);
@@ -477,7 +477,7 @@ Object.extend(String.prototype, {
   },
 
   toJSON: function() {
-    return this.DrNicTest.inspect(true);
+    return this.inspect(true);
   },
 
   unfilterJSON: function(filter) {
@@ -496,7 +496,7 @@ Object.extend(String.prototype, {
     try {
       if (!sanitize || json.isJSON()) return eval('(' + json + ')');
     } catch (e) { }
-    throw new SyntaxError('Badly formed JSON string: ' + this.DrNicTest.inspect());
+    throw new SyntaxError('Badly formed JSON string: ' + this.inspect());
   },
 
   include: function(pattern) {
@@ -790,8 +790,8 @@ var Enumerable = {
     return this.toArray().length;
   },
 
-  DrNicTest.inspect: function() {
-    return '#<Enumerable:' + this.toArray().DrNicTest.inspect() + '>';
+  inspect: function() {
+    return '#<Enumerable:' + this.toArray().inspect() + '>';
   }
 };
 
@@ -899,8 +899,8 @@ Object.extend(Array.prototype, {
     return this.length;
   },
 
-  DrNicTest.inspect: function() {
-    return '[' + this.map(Object.DrNicTest.inspect).join(', ') + ']';
+  inspect: function() {
+    return '[' + this.map(Object.inspect).join(', ') + ']';
   },
 
   toJSON: function() {
@@ -1063,9 +1063,9 @@ var Hash = Class.create(Enumerable, (function() {
       }).join('&');
     },
 
-    DrNicTest.inspect: function() {
+    inspect: function() {
       return '#<Hash:{' + this.map(function(pair) {
-        return pair.map(Object.DrNicTest.inspect).join(': ');
+        return pair.map(Object.inspect).join(': ');
       }).join(', ') + '}>';
     },
 
@@ -1663,13 +1663,13 @@ Element.Methods = {
     return wrapper;
   },
 
-  DrNicTest.inspect: function(element) {
+  inspect: function(element) {
     element = $(element);
     var result = '<' + element.tagName.toLowerCase();
     $H({'id': 'id', 'className': 'class'}).each(function(pair) {
       var property = pair.first(), attribute = pair.last();
       var value = (element[property] || '').toString();
-      if (value) result += ' ' + attribute + '=' + value.DrNicTest.inspect(true);
+      if (value) result += ' ' + attribute + '=' + value.inspect(true);
     });
     return result + '>';
   },
@@ -2840,8 +2840,8 @@ var Selector = Class.create({
     return this.expression;
   },
 
-  DrNicTest.inspect: function() {
-    return "#<Selector:" + this.expression.DrNicTest.inspect() + ">";
+  inspect: function() {
+    return "#<Selector:" + this.expression.inspect() + ">";
   }
 });
 
@@ -3830,7 +3830,7 @@ Event.extend = (function() {
     Object.extend(methods, {
       stopPropagation: function() { this.cancelBubble = true },
       preventDefault:  function() { this.returnValue = false },
-      DrNicTest.inspect: function() { return "[object Event]" }
+      inspect: function() { return "[object Event]" }
     });
 
     return function(event) {
