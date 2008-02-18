@@ -14,7 +14,7 @@ $:.unshift File.dirname(__FILE__) + "/lib"
 
 APP_VERSION  = '0.5.0'
 APP_NAME     = 'jsunittest'
-RUBYFORGE_PROJECT = APP_NAME
+RUBYFORGE_PROJECT = 'drnicjavascript'
 APP_FILE_NAME= "#{APP_NAME}.js"
 
 APP_ROOT     = File.expand_path(File.dirname(__FILE__))
