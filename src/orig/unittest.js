@@ -463,7 +463,7 @@ Test.Unit.Testcase = Class.create(Test.Unit.Assertions, {
   error: function(error, test) {
     this.errors++;
     this.actions['retry with throw'] = function() { test.run(true) };
-    this.messages.push(error.name + ": "+ error.message + "(" + Test.Unit.inspect(error) + ")");
+    this.messages.push(error.name + ": "+ error.message + "(" + Test.inspect(error) + ")");
   },
   
   status: function() {

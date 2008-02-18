@@ -71,7 +71,7 @@ DrNicTest.Unit.Testcase.prototype.info = function(message) {
 DrNicTest.Unit.Testcase.prototype.error = function(error, test) {
   this.errors++;
   this.actions['retry with throw'] = function() { test.run(true) };
-  this.messages.push(error.name + ": "+ error.message + "(" + DrNicTest.Unit.inspect(error) + ")");
+  this.messages.push(error.name + ": "+ error.message + "(" + DrNicTest.inspect(error) + ")");
 };
 
 DrNicTest.Unit.Testcase.prototype.status = function() {

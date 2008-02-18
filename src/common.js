@@ -1,17 +1,14 @@
-Object.prototype.inspect = function(object) {
-  try {
-    if (typeof object == "undefined") return 'undefined';
-    if (object === null) return 'null';
-    return object.inspect ? object.inspect() : String(object);
-  } catch (e) {
-    if (e instanceof RangeError) return '...';
-    throw e;
-  }
-}
-
 var DrNicTest = {
-  Unit: {
-    inspect: Object.inspect // security exception workaround
+  Unit: {},
+  inspect: function(object) {
+    try {
+      if (typeof object == "undefined") return 'undefined';
+      if (object === null) return 'null';
+      return String(object);
+    } catch (e) {
+      if (e instanceof RangeError) return '...';
+      throw e;
+    }
   },
   $: function(element) {
     if (arguments.length > 1) {

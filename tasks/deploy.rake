@@ -9,8 +9,8 @@ task :release => [:clean, :dist, :package] do |t|
   pkg = "pkg/#{name}-#{version}"
 
   if $DEBUG then
-    puts "release_id = rf.add_release #{rubyforge_name.inspect}, #{name.inspect}, #{version.inspect}, \"#{pkg}.tgz\""
-    puts "rf.add_file #{rubyforge_name.inspect}, #{name.inspect}, release_id, \"#{pkg}.gem\""
+    puts "release_id = rf.add_release #{rubyforge_name.DrNicTest.inspect}, #{name.DrNicTest.inspect}, #{version.DrNicTest.inspect}, \"#{pkg}.tgz\""
+    puts "rf.add_file #{rubyforge_name.DrNicTest.inspect}, #{name.DrNicTest.inspect}, release_id, \"#{pkg}.gem\""
   end
 
   rf = RubyForge.new

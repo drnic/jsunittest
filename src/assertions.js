@@ -2,7 +2,6 @@
 DrNicTest.Unit.Assertions = {
   buildMessage: function(message, template) {
     var args = DrNicTest.arrayfromargs(arguments).slice(2);
-    console.log(args);
     return (message ? message + '\n' : '') + 
       new DrNicTest.Unit.MessageTemplate(template).evaluate(args);
   },
