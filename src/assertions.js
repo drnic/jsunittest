@@ -23,7 +23,6 @@ DrNicTest.Unit.Assertions = {
   
   assertEqual: function(expected, actual, message) {
     message = this.buildMessage(message || 'assertEqual', 'expected <?>, actual: <?>', expected, actual);
-    console.log(message);
     this.assertBlock(message, function() { return expected == actual });
   },
   
@@ -34,7 +33,6 @@ DrNicTest.Unit.Assertions = {
   
   assertEnumEqual: function(expected, actual, message) {
     message = this.buildMessage(message || 'assertEnumEqual', 'expected <?>, actual: <?>', expected, actual);
-    console.log(message);
     this.assertBlock(message, function() {
       if (expected.length == actual.length) {
         for (var i=0; i < expected.length; i++) {
