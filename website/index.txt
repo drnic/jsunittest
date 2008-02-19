@@ -23,6 +23,12 @@ h2. How to do JavaScript unit testing
 * "newjs":http://newjs.rubyforge.org - started new JavaScript projects with in-built test suite
 * "Autotest for Javascript":http://drnicwilliams.com/2008/01/04/autotesting-javascript-in-rails/ - ideas on a script/js_autotest script (built-in to newjs)
 
+h2. Contributions/Thanks:
+
+* original unittest code - prototypejs project
+* ajax library - John Resig, Pro JavaScript book
+* event library - Dean Edwards
+
 h2. Forum
 
 "http://groups.google.com/group/drnic-javascript-projects":http://groups.google.com/group/drnic-javascript-projects

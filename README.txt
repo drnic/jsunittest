@@ -14,3 +14,8 @@ More information:
     
 Author:
     Dr Nic Williams, drnicwilliams@gmail.com
+    
+Contributions/Thanks:
+    original unittest code - prototypejs project
+    ajax library - John Resig, Pro JavaScript book
+    event library - Dean Edwards
