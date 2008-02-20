@@ -1,3 +1,9 @@
+* website: includes "getting started" archives
+
+== 0.6.0 2008-02-18
+
+* Cannot remember
+
 == 0.5.0 2008-02-17
 
 * 1 major enhancement:
