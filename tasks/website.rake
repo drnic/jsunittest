@@ -35,7 +35,7 @@ task :website_package do
   FileUtils.copy_file "test/assets/example_test.html","#{website_package_src}/example_test.html"
   chdir(website_package_src) do
     sh %{tar zcvf ../#{website_package}.tar.gz .}
-    sh %{zip -r ../#{website_package}-getting-started.zip .}
+    sh %{zip -r ../#{website_package}.zip .}
   end
 end
 
