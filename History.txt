@@ -1,4 +1,7 @@
+== 0.6.1 2008-02-20
+
 * website: includes "getting started" archives
+* ajax: fixed Firefox bug with xml.send()
 
 == 0.6.0 2008-02-18
 

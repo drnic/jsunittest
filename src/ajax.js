@@ -73,7 +73,7 @@ DrNicTest.ajax = function( options ) {
     };
 
     // Establish the connection to the server
-    xml.send();
+    xml.send(null);
 
     // Determine the success of the HTTP response
     function httpSuccess(r) {
