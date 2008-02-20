@@ -17,9 +17,25 @@ EOS
 end
 
 desc 'Generate website files'
-task :website_generate => [:ruby_env, :dist] do
+task :website_generate => [:ruby_env, :dist, :website_package] do
   (Dir['website/**/*.txt'] - Dir['website/version*.txt']).each do |txt|
     sh %{ #{RUBY_APP} script/txt2html #{txt} > #{txt.gsub(/txt$/,'html')} }
+  end
+end
+
+task :website_package do
+  website_package = "#{APP_NAME}-getting-started"
+  website_package_src = "website/dist/#{website_package}"
+  FileUtils.mkdir_p "#{website_package_src}/assets", :verbose => true
+  FileUtils.copy_file "dist/#{APP_FILE_NAME}",       "website/dist/#{APP_FILE_NAME}"
+  FileUtils.copy_file "dist/#{APP_FILE_NAME}",       "website/dist/#{APP_NAME}-#{APP_VERSION}.js"
+
+  FileUtils.copy_file "dist/#{APP_FILE_NAME}",        "#{website_package_src}/assets/#{APP_FILE_NAME}"
+  FileUtils.copy_file "test/assets/unittest.css",     "#{website_package_src}/assets/unittest.css"
+  FileUtils.copy_file "test/assets/example_test.html","#{website_package_src}/example_test.html"
+  chdir(website_package_src) do
+    sh %{tar zcvf ../#{website_package}.tar.gz .}
+    sh %{zip -r ../#{website_package}-getting-started.zip .}
   end
 end
 

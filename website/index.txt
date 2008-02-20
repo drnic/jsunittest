@@ -1,4 +1,4 @@
-h1. jsunittest
+h1. JsUnitTest - JavaScript Unit Testing framework
 
 h2. What
 
@@ -9,6 +9,21 @@ This is based off unittest.js from "prototypejs":http://prototypejs.org, except 
 h2. Downloading
 
 Get the latest here: <a href="dist/jsunittest.js">jsunittest.js</a>
+
+Alternately, download the source for the project via the large version number box to the top-right.
+
+h3. Getting Started
+
+Download <a href="dist/jsunittest-getting-started.tar.gz">tar</a> or <a href="dist/jsunittest-getting-started.zip">zip</a> and unarchive within <code>test/</code> or <code>test/javascript</code> folder of your project.
+
+The archives include the following files:
+  
+<pre>assets/jsunittest.js
+assets/unittest.css
+example_test.html
+</pre>
+
+Once unpacked, open <code>example_test.html</code> in your browser to check everything is working.
 
 h2. The basics
 
