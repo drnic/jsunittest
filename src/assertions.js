@@ -191,7 +191,6 @@ JsUnitTest.Unit.Assertions = {
     element = JsUnitTest.$(element);
     if(!element.parentNode) return true;
     this.assertNotNull(element);
-    // if(element.style && (!element.style.display || element.style.display == 'none'))
     if(element.style && (element.style.display == 'none'))
       return false;
     
