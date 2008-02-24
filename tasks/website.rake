@@ -16,8 +16,10 @@ EOS
   @website_config
 end
 
-desc 'Generate website files'
-task :website_generate => [:ruby_env, :dist, :website_package] do
+desc 'Generate website files + associated packages + bundles'
+task :website_build => [:ruby_env, :dist, :website_package, "bundle:import", :website_generate]
+
+task :website_generate => :ruby_env do
   (Dir['website/**/*.txt'] - Dir['website/version*.txt']).each do |txt|
     sh %{ #{RUBY_APP} script/txt2html #{txt} > #{txt.gsub(/txt$/,'html')} }
   end
@@ -48,4 +50,4 @@ task :website_upload do
 end
 
 desc 'Generate and upload website files'
-task :website => [:website_generate, :website_upload]
+task :website => [:website_build, :website_upload]

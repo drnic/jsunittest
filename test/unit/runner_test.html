@@ -6,7 +6,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <script src="../assets/jsunittest.js" type="text/javascript"></script>
   <script type="text/javascript" charset="utf-8">
-    var Test = DrNicTest;
+    var Test = JsUnitTest;
   </script>
   <script src="../../src/prototype/template.js" type="text/javascript" charset="utf-8"></script>
   <script src="../../src/prototype/event.js" type="text/javascript" charset="utf-8"></script>
@@ -38,18 +38,18 @@
   new Test.Unit.Runner({
     // replace this with your real tests
     setup: function() {
-      DrNicTest.Unit.Testcase = function() {};
-      DrNicTest.Unit.Testcase.prototype.run = function() {};
-      DrNicTest.Unit.Testcase.prototype.status = function() { return "passed" };
-      DrNicTest.Unit.Testcase.prototype.summary = function() { return "summary" };
-      DrNicTest.Unit.Testcase.prototype.assertions = 1;
-      DrNicTest.Unit.Testcase.prototype.failures = 0;
-      DrNicTest.Unit.Testcase.prototype.errors = 0;
-      DrNicTest.Unit.Logger = function() {};
-      DrNicTest.Unit.Logger.prototype.start = function() {};
-      DrNicTest.Unit.Logger.prototype.finish = function() {};
-      DrNicTest.Unit.Logger.prototype.summary = function() {};
-      this.runner = new DrNicTest.Unit.Runner({
+      JsUnitTest.Unit.Testcase = function() {};
+      JsUnitTest.Unit.Testcase.prototype.run = function() {};
+      JsUnitTest.Unit.Testcase.prototype.status = function() { return "passed" };
+      JsUnitTest.Unit.Testcase.prototype.summary = function() { return "summary" };
+      JsUnitTest.Unit.Testcase.prototype.assertions = 1;
+      JsUnitTest.Unit.Testcase.prototype.failures = 0;
+      JsUnitTest.Unit.Testcase.prototype.errors = 0;
+      JsUnitTest.Unit.Logger = function() {};
+      JsUnitTest.Unit.Logger.prototype.start = function() {};
+      JsUnitTest.Unit.Logger.prototype.finish = function() {};
+      JsUnitTest.Unit.Logger.prototype.summary = function() {};
+      this.runner = new JsUnitTest.Unit.Runner({
         testDoNothing : function() {},
         testDoNothing2 : function() {}
       });

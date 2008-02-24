@@ -1,13 +1,13 @@
-DrNicTest.Template = function(template, pattern) {
+JsUnitTest.Template = function(template, pattern) {
   this.template = template; //template.toString();
-  this.pattern = pattern || DrNicTest.Template.Pattern;
+  this.pattern = pattern || JsUnitTest.Template.Pattern;
 };
 
-DrNicTest.Template.prototype.evaluate = function(object) {
+JsUnitTest.Template.prototype.evaluate = function(object) {
   if (typeof object.toTemplateReplacements == "function")
     object = object.toTemplateReplacements();
 
-  return DrNicTest.gsub(this.template, this.pattern, function(match) {
+  return JsUnitTest.gsub(this.template, this.pattern, function(match) {
     if (object == null) return '';
 
     var before = match[1] || '';
@@ -26,8 +26,8 @@ DrNicTest.Template.prototype.evaluate = function(object) {
       match = pattern.exec(expr);
     }
 
-    return before + DrNicTest.String.interpret(ctx);
+    return before + JsUnitTest.String.interpret(ctx);
   });
 }
 
-DrNicTest.Template.Pattern = /(^|.|\r|\n)(#\{(.*?)\})/;
+JsUnitTest.Template.Pattern = /(^|.|\r|\n)(#\{(.*?)\})/;

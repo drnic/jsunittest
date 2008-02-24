@@ -1,8 +1,8 @@
-DrNicTest.Unit.Assertions = {
+JsUnitTest.Unit.Assertions = {
   buildMessage: function(message, template) {
-    var args = DrNicTest.arrayfromargs(arguments).slice(2);
+    var args = JsUnitTest.arrayfromargs(arguments).slice(2);
     return (message ? message + '\n' : '') + 
-      new DrNicTest.Unit.MessageTemplate(template).evaluate(args);
+      new JsUnitTest.Unit.MessageTemplate(template).evaluate(args);
   },
   
   flunk: function(message) {
@@ -32,8 +32,8 @@ DrNicTest.Unit.Assertions = {
   
   assertEnumEqual: function(expected, actual, message) {
     message = this.buildMessage(message || 'assertEnumEqual', 'expected <?>, actual: <?>', expected, actual);
-    var expected_array = DrNicTest.flattenArray(expected);
-    var actual_array   = DrNicTest.flattenArray(actual);
+    var expected_array = JsUnitTest.flattenArray(expected);
+    var actual_array   = JsUnitTest.flattenArray(actual);
     this.assertBlock(message, function() {
       if (expected_array.length == actual_array.length) {
         for (var i=0; i < expected_array.length; i++) {
@@ -47,8 +47,8 @@ DrNicTest.Unit.Assertions = {
   
   assertEnumNotEqual: function(expected, actual, message) {
     message = this.buildMessage(message || 'assertEnumNotEqual', '<?> was the same as <?>', expected, actual);
-    var expected_array = DrNicTest.flattenArray(expected);
-    var actual_array   = DrNicTest.flattenArray(actual);
+    var expected_array = JsUnitTest.flattenArray(expected);
+    var actual_array   = JsUnitTest.flattenArray(actual);
     this.assertBlock(message, function() {
       if (expected_array.length == actual_array.length) {
         for (var i=0; i < expected_array.length; i++) {
@@ -62,8 +62,8 @@ DrNicTest.Unit.Assertions = {
   
   assertHashEqual: function(expected, actual, message) {
     message = this.buildMessage(message || 'assertHashEqual', 'expected <?>, actual: <?>', expected, actual);
-    var expected_array = DrNicTest.flattenArray(DrNicTest.hashToSortedArray(expected));
-    var actual_array   = DrNicTest.flattenArray(DrNicTest.hashToSortedArray(actual));
+    var expected_array = JsUnitTest.flattenArray(JsUnitTest.hashToSortedArray(expected));
+    var actual_array   = JsUnitTest.flattenArray(JsUnitTest.hashToSortedArray(actual));
     var block = function() {
       if (expected_array.length == actual_array.length) {
         for (var i=0; i < expected_array.length; i++) {
@@ -78,8 +78,8 @@ DrNicTest.Unit.Assertions = {
   
   assertHashNotEqual: function(expected, actual, message) {
     message = this.buildMessage(message || 'assertHashNotEqual', '<?> was the same as <?>', expected, actual);
-    var expected_array = DrNicTest.flattenArray(DrNicTest.hashToSortedArray(expected));
-    var actual_array   = DrNicTest.flattenArray(DrNicTest.hashToSortedArray(actual));
+    var expected_array = JsUnitTest.flattenArray(JsUnitTest.hashToSortedArray(expected));
+    var actual_array   = JsUnitTest.flattenArray(JsUnitTest.hashToSortedArray(actual));
     // from now we recursively zip & compare nested arrays
     var block = function() {
       if (expected_array.length == actual_array.length) {
@@ -145,7 +145,7 @@ DrNicTest.Unit.Assertions = {
   
   assertHidden: function(element, message) {
     message = this.buildMessage(message || 'assertHidden', '? isn\'t hidden.', element);
-    this.assertBlock(message, function() { return element.style.display == 'none' });
+    this.assertBlock(message, function() { return !element.style.display || element.style.display == 'none' });
   },
   
   assertInstanceOf: function(expected, actual, message) {
@@ -188,10 +188,11 @@ DrNicTest.Unit.Assertions = {
   },
   
   _isVisible: function(element) {
-    element = DrNicTest.$(element);
+    element = JsUnitTest.$(element);
     if(!element.parentNode) return true;
     this.assertNotNull(element);
-    if(element.style && element.style.display == 'none')
+    // if(element.style && (!element.style.display || element.style.display == 'none'))
+    if(element.style && (element.style.display == 'none'))
       return false;
     
     return arguments.callee.call(this, element.parentNode);
@@ -208,7 +209,7 @@ DrNicTest.Unit.Assertions = {
   },
   
   assertElementsMatch: function() {
-    var pass = true, expressions = DrNicTest.arrayfromargs(arguments);
+    var pass = true, expressions = JsUnitTest.arrayfromargs(arguments);
     var elements = expressions.shift();
     if (elements.length != expressions.length) {
       message = this.buildMessage('assertElementsMatch', 'size mismatch: ? elements, ? expressions (?).', elements.length, expressions.length, expressions);
@@ -217,8 +218,8 @@ DrNicTest.Unit.Assertions = {
     }
     for (var i=0; i < expressions.length; i++) {
       var expression = expressions[i];
-      var element    = DrNicTest.$(elements[i]);
-      if (DrNicTest.selectorMatch(expression, element)) {
+      var element    = JsUnitTest.$(elements[i]);
+      if (JsUnitTest.selectorMatch(expression, element)) {
         pass = true;
         break;
       }

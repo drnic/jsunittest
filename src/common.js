@@ -1,4 +1,4 @@
-var DrNicTest = {
+var JsUnitTest = {
   Unit: {},
   inspect: function(object) {
     try {
@@ -36,7 +36,7 @@ var DrNicTest = {
     while (source.length > 0) {
       if (match = source.match(pattern)) {
         result += source.slice(0, match.index);
-        result += DrNicTest.String.interpret(replacement(match));
+        result += JsUnitTest.String.interpret(replacement(match));
         source  = source.slice(match.index + match[0].length);
       } else {
         result += source, source = '';
@@ -184,7 +184,7 @@ var DrNicTest = {
   }
 };
 
-DrNicTest.gsub.prepareReplacement = function(replacement) {
+JsUnitTest.gsub.prepareReplacement = function(replacement) {
   if (typeof replacement == "function") return replacement;
   var template = new Template(replacement);
   return function(match) { return template.evaluate(match) };

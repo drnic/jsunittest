@@ -193,9 +193,9 @@ end
 class WEBrick::HTTPRequest
   def to_json
     headers = []
-    each { |k, v| headers.push "#{k.DrNicTest.inspect}: #{v.DrNicTest.inspect}" }
+    each { |k, v| headers.push "#{k.inspect}: #{v.inspect}" }
     headers = "{" << headers.join(', ') << "}"
-    %({ "headers": #{headers}, "body": #{body.DrNicTest.inspect}, "method": #{request_method.DrNicTest.inspect} })
+    %({ "headers": #{headers}, "body": #{body.inspect}, "method": #{request_method.inspect} })
   end
 end
 
@@ -288,7 +288,7 @@ class JavaScriptTestTask < ::Rake::TaskLib
     @server.mount("/response", BasicServlet)
     @server.mount("/slow", SlowServlet)
     @server.mount("/down", DownServlet)
-    @server.mount("/DrNicTest.inspect", InspectionServlet)
+    @server.mount("/inspect", InspectionServlet)
     yield self if block_given?
     define
   end

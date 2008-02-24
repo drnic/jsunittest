@@ -1,25 +1,25 @@
-DrNicTest.Unit.Runner = function(testcases) {
+JsUnitTest.Unit.Runner = function(testcases) {
   var argumentOptions = arguments[1] || {};
   var options = this.options = {};
   options.testLog = ('testLog' in argumentOptions) ? argumentOptions.testLog : 'testlog';
   options.resultsURL = this.queryParams.resultsURL;
-  options.testLog = DrNicTest.$(options.testLog);
+  options.testLog = JsUnitTest.$(options.testLog);
   
   this.tests = this.getTests(testcases);
   this.currentTest = 0;
-  this.logger = new DrNicTest.Unit.Logger(options.testLog);
+  this.logger = new JsUnitTest.Unit.Logger(options.testLog);
   
   var self = this;
-  DrNicTest.Event.addEvent(window, "load", function() {
+  JsUnitTest.Event.addEvent(window, "load", function() {
     setTimeout(function() {
       self.runTests();
     }, 0.1);
   });
 };
 
-DrNicTest.Unit.Runner.prototype.queryParams = DrNicTest.toQueryParams();
+JsUnitTest.Unit.Runner.prototype.queryParams = JsUnitTest.toQueryParams();
 
-DrNicTest.Unit.Runner.prototype.portNumber = function() {
+JsUnitTest.Unit.Runner.prototype.portNumber = function() {
   if (window.location.search.length > 0) {
     var matches = window.location.search.match(/\:(\d{3,5})\//);
     if (matches) {
@@ -29,7 +29,7 @@ DrNicTest.Unit.Runner.prototype.portNumber = function() {
   return null;
 };
 
-DrNicTest.Unit.Runner.prototype.getTests = function(testcases) {
+JsUnitTest.Unit.Runner.prototype.getTests = function(testcases) {
   var tests = [], options = this.options;
   if (this.queryParams.tests) tests = this.queryParams.tests.split(',');
   else if (options.tests) tests = options.tests;
@@ -44,13 +44,13 @@ DrNicTest.Unit.Runner.prototype.getTests = function(testcases) {
     var test = tests[i];
     if (testcases[test])
       results.push(
-        new DrNicTest.Unit.Testcase(test, testcases[test], testcases.setup, testcases.teardown)
+        new JsUnitTest.Unit.Testcase(test, testcases[test], testcases.setup, testcases.teardown)
       );
   };
   return results;
 };
 
-DrNicTest.Unit.Runner.prototype.getResult = function() {
+JsUnitTest.Unit.Runner.prototype.getResult = function() {
   var results = {
     tests: this.tests.length,
     assertions: 0,
@@ -67,7 +67,7 @@ DrNicTest.Unit.Runner.prototype.getResult = function() {
   return results;
 };
 
-DrNicTest.Unit.Runner.prototype.postResults = function() {
+JsUnitTest.Unit.Runner.prototype.postResults = function() {
   if (this.options.resultsURL) {
     // new Ajax.Request(this.options.resultsURL, 
     //   { method: 'get', parameters: this.getResult(), asynchronous: false });
@@ -76,14 +76,14 @@ DrNicTest.Unit.Runner.prototype.postResults = function() {
     url += "assertions="+ results.assertions + "&";
     url += "failures="  + results.failures + "&";
     url += "errors="    + results.errors;
-    DrNicTest.ajax({
+    JsUnitTest.ajax({
       url: url,
       type: 'GET'      
     })
   }
 };
 
-DrNicTest.Unit.Runner.prototype.runTests = function() {
+JsUnitTest.Unit.Runner.prototype.runTests = function() {
   var test = this.tests[this.currentTest], actions;
   
   if (!test) return this.finish();
@@ -106,11 +106,11 @@ DrNicTest.Unit.Runner.prototype.runTests = function() {
   this.runTests();
 };
 
-DrNicTest.Unit.Runner.prototype.finish = function() {
+JsUnitTest.Unit.Runner.prototype.finish = function() {
   this.postResults();
   this.logger.summary(this.summary());
 };
 
-DrNicTest.Unit.Runner.prototype.summary = function() {
-  return new DrNicTest.Template('#{tests} tests, #{assertions} assertions, #{failures} failures, #{errors} errors').evaluate(this.getResult());
+JsUnitTest.Unit.Runner.prototype.summary = function() {
+  return new JsUnitTest.Template('#{tests} tests, #{assertions} assertions, #{failures} failures, #{errors} errors').evaluate(this.getResult());
 };

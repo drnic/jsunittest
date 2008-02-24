@@ -6,7 +6,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <script src="../assets/jsunittest.js" type="text/javascript"></script>
   <script type="text/javascript" charset="utf-8">
-    var Test = DrNicTest;
+    var Test = JsUnitTest;
   </script>  
   <link rel="stylesheet" href="../assets/unittest.css" type="text/css" />
 </head>
@@ -34,17 +34,17 @@
   new Test.Unit.Runner({
     testScan: function() {with(this) {
       var source = 'foo boo boz', results = [];
-      var str = DrNicTest.scan(source, /[o]+/, function(match) {
+      var str = JsUnitTest.scan(source, /[o]+/, function(match) {
         results.push(match[0].length);
       });
       assertEnumEqual([2, 2, 1], results);
-      assertEqual(source, DrNicTest.scan(source, /x/, fail));
+      assertEqual(source, JsUnitTest.scan(source, /x/, fail));
       assert(typeof str == 'string');
     }},
     // hash to sorted array
     testHashToSortedArray: function() { with(this) {
       var expected = [ ['a', 1], ['b', 2], ['zzz', 0]];
-      var actual = DrNicTest.hashToSortedArray({zzz:0, b:2, a:1});
+      var actual = JsUnitTest.hashToSortedArray({zzz:0, b:2, a:1});
       assertEnumEqual(expected, actual);
     }},
 
@@ -52,7 +52,7 @@
     testFlatten: function() { with(this) {
       var original = [ ['a', 1], ['b', 2], ['zzz', [1,2,3]]];
       var expected = [ 'a', 1, 'b', 2, 'zzz', 1, 2, 3];
-      var actual   = DrNicTest.flattenArray(original);
+      var actual   = JsUnitTest.flattenArray(original);
       assertEnumEqual(expected, actual);
     }},
 

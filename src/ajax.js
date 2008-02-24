@@ -3,7 +3,7 @@
 // All of which are outline in the comments, below
 // From John Resig's book Pro JavaScript Techniques
 // published by Apress, 2006-8
-DrNicTest.ajax = function( options ) {
+JsUnitTest.ajax = function( options ) {
 
     // Load the options object with defaults, if no
     // values were provided by the user

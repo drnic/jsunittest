@@ -12,4 +12,4 @@ var JsUnitTest = {
 <%= include 'assertions.js' %>
 <%= include 'runner.js', 'test_case.js' %>
 
-Test = DrNicTest
+Test = JsUnitTest

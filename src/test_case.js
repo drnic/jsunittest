@@ -1,4 +1,4 @@
-DrNicTest.Unit.Testcase = function(name, test, setup, teardown) {
+JsUnitTest.Unit.Testcase = function(name, test, setup, teardown) {
   this.name           = name;
   this.test           = test     || function() {};
   this.setup          = setup    || function() {};
@@ -6,27 +6,27 @@ DrNicTest.Unit.Testcase = function(name, test, setup, teardown) {
   this.messages       = [];
   this.actions        = {};
 };
-// import DrNicTest.Unit.Assertions
+// import JsUnitTest.Unit.Assertions
 
-for (method in DrNicTest.Unit.Assertions) {
-  DrNicTest.Unit.Testcase.prototype[method] = DrNicTest.Unit.Assertions[method];
+for (method in JsUnitTest.Unit.Assertions) {
+  JsUnitTest.Unit.Testcase.prototype[method] = JsUnitTest.Unit.Assertions[method];
 }
 
-DrNicTest.Unit.Testcase.prototype.isWaiting  = false;
-DrNicTest.Unit.Testcase.prototype.timeToWait = 1000;
-DrNicTest.Unit.Testcase.prototype.assertions = 0;
-DrNicTest.Unit.Testcase.prototype.failures   = 0;
-DrNicTest.Unit.Testcase.prototype.errors     = 0;
-// DrNicTest.Unit.Testcase.prototype.isRunningFromRake = window.location.port == 4711;
-DrNicTest.Unit.Testcase.prototype.isRunningFromRake = window.location.port;
+JsUnitTest.Unit.Testcase.prototype.isWaiting  = false;
+JsUnitTest.Unit.Testcase.prototype.timeToWait = 1000;
+JsUnitTest.Unit.Testcase.prototype.assertions = 0;
+JsUnitTest.Unit.Testcase.prototype.failures   = 0;
+JsUnitTest.Unit.Testcase.prototype.errors     = 0;
+// JsUnitTest.Unit.Testcase.prototype.isRunningFromRake = window.location.port == 4711;
+JsUnitTest.Unit.Testcase.prototype.isRunningFromRake = window.location.port;
 
-DrNicTest.Unit.Testcase.prototype.wait = function(time, nextPart) {
+JsUnitTest.Unit.Testcase.prototype.wait = function(time, nextPart) {
   this.isWaiting = true;
   this.test = nextPart;
   this.timeToWait = time;
 };
 
-DrNicTest.Unit.Testcase.prototype.run = function(rethrow) {
+JsUnitTest.Unit.Testcase.prototype.run = function(rethrow) {
   try {
     try {
       if (!this.isWaiting) this.setup();
@@ -44,17 +44,17 @@ DrNicTest.Unit.Testcase.prototype.run = function(rethrow) {
   }
 };
 
-DrNicTest.Unit.Testcase.prototype.summary = function() {
+JsUnitTest.Unit.Testcase.prototype.summary = function() {
   var msg = '#{assertions} assertions, #{failures} failures, #{errors} errors\n';
-  return new DrNicTest.Template(msg).evaluate(this) + 
+  return new JsUnitTest.Template(msg).evaluate(this) + 
     this.messages.join("\n");
 };
 
-DrNicTest.Unit.Testcase.prototype.pass = function() {
+JsUnitTest.Unit.Testcase.prototype.pass = function() {
   this.assertions++;
 };
 
-DrNicTest.Unit.Testcase.prototype.fail = function(message) {
+JsUnitTest.Unit.Testcase.prototype.fail = function(message) {
   this.failures++;
   var line = "";
   try {
@@ -65,23 +65,23 @@ DrNicTest.Unit.Testcase.prototype.fail = function(message) {
   this.messages.push("Failure: " + message + (line ? " Line #" + line : ""));
 };
 
-DrNicTest.Unit.Testcase.prototype.info = function(message) {
+JsUnitTest.Unit.Testcase.prototype.info = function(message) {
   this.messages.push("Info: " + message);
 };
 
-DrNicTest.Unit.Testcase.prototype.error = function(error, test) {
+JsUnitTest.Unit.Testcase.prototype.error = function(error, test) {
   this.errors++;
   this.actions['retry with throw'] = function() { test.run(true) };
-  this.messages.push(error.name + ": "+ error.message + "(" + DrNicTest.inspect(error) + ")");
+  this.messages.push(error.name + ": "+ error.message + "(" + JsUnitTest.inspect(error) + ")");
 };
 
-DrNicTest.Unit.Testcase.prototype.status = function() {
+JsUnitTest.Unit.Testcase.prototype.status = function() {
   if (this.failures > 0) return 'failed';
   if (this.errors > 0) return 'error';
   return 'passed';
 };
 
-DrNicTest.Unit.Testcase.prototype.benchmark = function(operation, iterations) {
+JsUnitTest.Unit.Testcase.prototype.benchmark = function(operation, iterations) {
   var startAt = new Date();
   (iterations || 1).times(operation);
   var timeTaken = ((new Date())-startAt);

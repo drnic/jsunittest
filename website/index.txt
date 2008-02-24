@@ -6,6 +6,10 @@ This JavaScript project provides a one-file JavaScript test suite.
 
 This is based off unittest.js from "prototypejs":http://prototypejs.org, except this library has no dependency on prototype.js so there is no chance your code-under-test can conflict with prototype.js or that you might accidently use a prototype.js helper for a library that will be deployed independently off prototypejs.
 
+There is also a TextMate bundle with snippets for creating the runner and assertions.
+
+<a href="tmbundle/JavaScript Unit Testing.tmbundle.tar.gz"><img src="images/logo_bundle.png" width="50" height="51" alt="Logo Bundle" border=0></a> - click to download. More information below.
+
 h2. Downloading
 
 Get the latest here: <a href="dist/jsunittest.js">jsunittest.js</a>
@@ -33,8 +37,18 @@ h2. Same API as unittest.js
 
 <img src="images/passing_prototypejs_unittest_tests.jpg" width="709" height="573" alt="Passing Prototypejs Unittest Tests">
 
+h2. TextMate bundle
+
+<a href="tmbundle/JavaScript Unit Testing.tmbundle.tar.gz"><img src="images/logo_bundle.png" width="50" height="51" alt="Logo Bundle" border=0></a> - click to download
+
+* Mac OSX: Download, unarchive and open with Finder to install into TextMate
+* Windows (E Text Editor): Don't know. Can someone let me know what the installation instructions are for new/update bundles?
+
+The source for the bundle is available via git: <a href="http://github.com/drnic/javascript-unittest-tmbundle/tree/master">http://github.com/drnic/javascript-unittest-tmbundle/tree/master</a>
+
 h2. How to do JavaScript unit testing
 
+* "PeepCode: JavaScript Unit Testing":http://peepcode.com - coming soon from Dr Nic
 * "newjs":http://newjs.rubyforge.org - started new JavaScript projects with in-built test suite
 * "Autotest for Javascript":http://drnicwilliams.com/2008/01/04/autotesting-javascript-in-rails/ - ideas on a script/js_autotest script (built-in to newjs)
 

@@ -45,7 +45,7 @@ Event.simulateMouse = function(element, eventName) {
   document.body.appendChild(this.mark);
   
   if(this.step)
-    alert('['+new Date().getTime().toString()+'] '+eventName+'/'+Test.Unit.DrNicTest.inspect(options));
+    alert('['+new Date().getTime().toString()+'] '+eventName+'/'+Test.Unit.inspect(options));
   
   $(element).dispatchEvent(oEvent);
 };
@@ -78,7 +78,7 @@ Event.simulateKeys = function(element, command) {
 
 var Test = {
   Unit: {
-    DrNicTest.inspect: Object.DrNicTest.inspect // security exception workaround
+    inspect: Object.inspect // security exception workaround
   }
 };
 
@@ -244,7 +244,7 @@ Test.Unit.MessageTemplate = Class.create({
   
   evaluate: function(params) {
     return this.parts.map(function(part) {
-      return part == '?' ? Test.Unit.DrNicTest.inspect(params.shift()) : part.replace(/\\\?/, '?');
+      return part == '?' ? Test.Unit.inspect(params.shift()) : part.replace(/\\\?/, '?');
     }).join('');
   }
 });
@@ -535,7 +535,7 @@ Test.Unit.Testcase = Class.create(Test.Unit.Assertions, {
   error: function(error, test) {
     this.errors++;
     this.actions['retry with throw'] = function() { test.run(true) };
-    this.messages.push(error.name + ": "+ error.message + "(" + Test.Unit.DrNicTest.inspect(error) + ")");
+    this.messages.push(error.name + ": "+ error.message + "(" + Test.Unit.inspect(error) + ")");
   },
   
   status: function() {
