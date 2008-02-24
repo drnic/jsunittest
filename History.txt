@@ -1,3 +1,9 @@
+== 0.6.2 2008-02-24
+
+* Renamed DrNicTest with JsUnitTest
+* Finished clean of "DrNicTest.inspect" -> "inspect"
+* website: archive the tmbundle into the website
+
 == 0.6.1 2008-02-20
 
 * website: includes "getting started" archives
