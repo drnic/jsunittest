@@ -10,7 +10,7 @@ JsUnitTest.Event.addEvent = function(element, type, handler) {
 		element.addEventListener(type, handler, false);
 	} else {
 		// assign each event handler a unique ID
-		if (!handler.$$guid) handler.$$guid = DrNicTest.Event.addEvent.guid++;
+		if (!handler.$$guid) handler.$$guid = JsUnitTest.Event.addEvent.guid++;
 		// create a hash table of event types for the element
 		if (!element.events) element.events = {};
 		// create a hash table of event handlers for each element/event pair
@@ -45,7 +45,7 @@ JsUnitTest.Event.removeEvent = function(element, type, handler) {
 JsUnitTest.Event.handleEvent = function(event) {
 	var returnValue = true;
 	// grab the event object (IE uses a global event object)
-	event = event || DrNicTest.Event.fixEvent(((this.ownerDocument || this.document || this).parentWindow || window).event);
+	event = event || JsUnitTest.Event.fixEvent(((this.ownerDocument || this.document || this).parentWindow || window).event);
 	// get a reference to the hash table of event handlers
 	var handlers = this.events[event.type];
 	// execute each event handler

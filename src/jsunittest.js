@@ -1,10 +1,8 @@
 <%= include 'HEADER' %>
 
-var JsUnitTest = {
-  Version: '<%= APP_VERSION %>',
-};
-
 <%= include 'common.js' %>
+
+JsUnitTest.Version = '<%= APP_VERSION %>';
 
 <%= include 'prototype/template.js', 'prototype/event.js' %>
 
