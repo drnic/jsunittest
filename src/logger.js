@@ -6,14 +6,26 @@ JsUnitTest.Unit.Logger = function(element) {
 JsUnitTest.Unit.Logger.prototype.start = function(testName) {
   if (!this.element) return;
   var tbody = this.element.getElementsByTagName('tbody')[0];
-  tbody.innerHTML = tbody.innerHTML + '<tr><td>' + testName + '</td><td></td><td></td></tr>';
+  
+  var tr = document.createElement('tr');
+  var td;
+  
+  //testname
+  td = document.createElement('td');
+  td.appendChild(document.createTextNode(testName));
+  tr.appendChild(td)
+  
+  tr.appendChild(document.createElement('td'));//status
+  tr.appendChild(document.createElement('td'));//message
+  
+  tbody.appendChild(tr);
 };
   
 JsUnitTest.Unit.Logger.prototype.setStatus = function(status) {
   var logline = this.getLastLogLine();
   logline.className = status;
   var statusCell = logline.getElementsByTagName('td')[1];
-  statusCell.innerHTML = status;
+  statusCell.appendChild(document.createTextNode(status));
 };
   
 JsUnitTest.Unit.Logger.prototype.finish = function(status, summary) {
@@ -25,6 +37,8 @@ JsUnitTest.Unit.Logger.prototype.finish = function(status, summary) {
 JsUnitTest.Unit.Logger.prototype.message = function(message) {
   if (!this.element) return;
   var cell = this.getMessageCell();
+  
+  // cell.appendChild(document.createTextNode(this._toHTML(message)));
   cell.innerHTML = this._toHTML(message);
 };
   

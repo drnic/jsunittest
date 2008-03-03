@@ -10,7 +10,7 @@ JsUnitTest.Event.addEvent = function(element, type, handler) {
 		element.addEventListener(type, handler, false);
 	} else {
 		// assign each event handler a unique ID
-		if (!handler.$$guid) handler.$$guid = addEvent.guid++;
+		if (!handler.$$guid) handler.$$guid = DrNicTest.Event.addEvent.guid++;
 		// create a hash table of event types for the element
 		if (!element.events) element.events = {};
 		// create a hash table of event handlers for each element/event pair
@@ -25,7 +25,7 @@ JsUnitTest.Event.addEvent = function(element, type, handler) {
 		// store the event handler in the hash table
 		handlers[handler.$$guid] = handler;
 		// assign a global event handler to do all the work
-		element["on" + type] = handleEvent;
+		element["on" + type] = this.handleEvent;
 	}
 };
 // a counter used to create unique IDs
@@ -45,7 +45,7 @@ JsUnitTest.Event.removeEvent = function(element, type, handler) {
 JsUnitTest.Event.handleEvent = function(event) {
 	var returnValue = true;
 	// grab the event object (IE uses a global event object)
-	event = event || fixEvent(((this.ownerDocument || this.document || this).parentWindow || window).event);
+	event = event || DrNicTest.Event.fixEvent(((this.ownerDocument || this.document || this).parentWindow || window).event);
 	// get a reference to the hash table of event handlers
 	var handlers = this.events[event.type];
 	// execute each event handler
@@ -60,8 +60,8 @@ JsUnitTest.Event.handleEvent = function(event) {
 
 JsUnitTest.Event.fixEvent = function(event) {
 	// add W3C standard event methods
-	event.preventDefault = fixEvent.preventDefault;
-	event.stopPropagation = fixEvent.stopPropagation;
+	event.preventDefault = this.fixEvent.preventDefault;
+	event.stopPropagation = this.fixEvent.stopPropagation;
 	return event;
 };
 JsUnitTest.Event.fixEvent.preventDefault = function() {

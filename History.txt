@@ -1,3 +1,7 @@
+== 0.6.3 2008-03-03
+
+* Remove some innerHTML calls as an IE6 fix [Michael Grosser]
+
 == 0.6.2 2008-02-24
 
 * Renamed DrNicTest with JsUnitTest
