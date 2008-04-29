@@ -143,7 +143,16 @@ JsUnitTest.Unit.Assertions = {
     this.assertBlock(message, function() { return !(new RegExp(expected).exec(actual)) });
   },
   
+  assertHasClass: function(element, class, message) {
+    element = JsUnitTest.$(element);
+    message = this.buildMessage(message || 'assertHasClass', '? doesn\'t have class <?>.', element, class);
+    this.assertBlock(message, function() { 
+      return !!element.className.match(new RegExp(class))
+    });
+  },
+  
   assertHidden: function(element, message) {
+    element = JsUnitTest.$(element);
     message = this.buildMessage(message || 'assertHidden', '? isn\'t hidden.', element);
     this.assertBlock(message, function() { return !element.style.display || element.style.display == 'none' });
   },

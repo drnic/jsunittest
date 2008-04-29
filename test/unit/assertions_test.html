@@ -162,6 +162,13 @@
       assertNotInstanceOf(String, {});
     }},
     
+    testHasClass: function() { with(this) {
+      // <div id="test_1" class="a bbbbbbbbbbbb cccccccccc dddd"> </div>
+      assertHasClass('test_1', 'a');
+      // info(document.getElementById('test_1').className);
+      assertHasClass(document.getElementById('test_1'), 'dddd');
+    }},
+    
     testAssertVisible: function() { with(this) {
       assertVisible('testcss1');
       assertNotVisible('testcss1_span');

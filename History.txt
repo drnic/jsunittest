@@ -1,3 +1,5 @@
+* New assertions: assertHasClass(element, class)
+
 == 0.6.3 2008-03-03
 
 * Remove some innerHTML calls as an IE6 fix [Michael Grosser]
