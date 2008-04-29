@@ -143,11 +143,11 @@ JsUnitTest.Unit.Assertions = {
     this.assertBlock(message, function() { return !(new RegExp(expected).exec(actual)) });
   },
   
-  assertHasClass: function(element, class, message) {
+  assertHasClass: function(element, klass, message) {
     element = JsUnitTest.$(element);
-    message = this.buildMessage(message || 'assertHasClass', '? doesn\'t have class <?>.', element, class);
+    message = this.buildMessage(message || 'assertHasClass', '? doesn\'t have class <?>.', element, klass);
     this.assertBlock(message, function() { 
-      return !!element.className.match(new RegExp(class))
+      return !!element.className.match(new RegExp(klass))
     });
   },
   
