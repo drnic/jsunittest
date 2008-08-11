@@ -1,3 +1,6 @@
+== 0.7.0 2008-08-11
+
+* New helper: warning (alias: warn); use like info, error and fail helpers; has orange appearance in output
 * New assertions: assertHasClass(element, class)
 
 == 0.6.3 2008-03-03
