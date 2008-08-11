@@ -12,13 +12,15 @@ for (method in JsUnitTest.Unit.Assertions) {
   JsUnitTest.Unit.Testcase.prototype[method] = JsUnitTest.Unit.Assertions[method];
 }
 
-JsUnitTest.Unit.Testcase.prototype.isWaiting  = false;
-JsUnitTest.Unit.Testcase.prototype.timeToWait = 1000;
-JsUnitTest.Unit.Testcase.prototype.assertions = 0;
-JsUnitTest.Unit.Testcase.prototype.failures   = 0;
-JsUnitTest.Unit.Testcase.prototype.errors     = 0;
-// JsUnitTest.Unit.Testcase.prototype.isRunningFromRake = window.location.port == 4711;
+JsUnitTest.Unit.Testcase.prototype.isWaiting         = false;
+JsUnitTest.Unit.Testcase.prototype.timeToWait        = 1000;
+JsUnitTest.Unit.Testcase.prototype.assertions        = 0;
+JsUnitTest.Unit.Testcase.prototype.failures          = 0;
+JsUnitTest.Unit.Testcase.prototype.errors            = 0;
+JsUnitTest.Unit.Testcase.prototype.warnings          = 0;
 JsUnitTest.Unit.Testcase.prototype.isRunningFromRake = window.location.port;
+
+// JsUnitTest.Unit.Testcase.prototype.isRunningFromRake = window.location.port == 4711;
 
 JsUnitTest.Unit.Testcase.prototype.wait = function(time, nextPart) {
   this.isWaiting = true;
@@ -45,7 +47,7 @@ JsUnitTest.Unit.Testcase.prototype.run = function(rethrow) {
 };
 
 JsUnitTest.Unit.Testcase.prototype.summary = function() {
-  var msg = '#{assertions} assertions, #{failures} failures, #{errors} errors\n';
+  var msg = '#{assertions} assertions, #{failures} failures, #{errors} errors, #{warnings} warnings\n';
   return new JsUnitTest.Template(msg).evaluate(this) + 
     this.messages.join("\n");
 };
@@ -65,6 +67,18 @@ JsUnitTest.Unit.Testcase.prototype.fail = function(message) {
   this.messages.push("Failure: " + message + (line ? " Line #" + line : ""));
 };
 
+JsUnitTest.Unit.Testcase.prototype.warning = function(message) {
+  this.warnings++;
+  var line = "";
+  try {
+    throw new Error("stack");
+  } catch(e){
+    line = (/\.html:(\d+)/.exec(e.stack || '') || ['',''])[1];
+  }
+  this.messages.push("Warning: " + message + (line ? " Line #" + line : ""));
+};
+JsUnitTest.Unit.Testcase.prototype.warn = JsUnitTest.Unit.Testcase.prototype.warning;
+
 JsUnitTest.Unit.Testcase.prototype.info = function(message) {
   this.messages.push("Info: " + message);
 };
@@ -78,6 +92,7 @@ JsUnitTest.Unit.Testcase.prototype.error = function(error, test) {
 JsUnitTest.Unit.Testcase.prototype.status = function() {
   if (this.failures > 0) return 'failed';
   if (this.errors > 0) return 'error';
+  if (this.warnings > 0) return 'warning';
   return 'passed';
 };
 

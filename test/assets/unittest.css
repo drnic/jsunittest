@@ -40,6 +40,10 @@ body {
   background-color: #fcc;
 }
 
+.logtable .warning {
+  background-color: #FC6;
+}
+
 .logtable td div.action_buttons {
   display: inline;
 }

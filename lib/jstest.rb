@@ -302,9 +302,10 @@ class JavaScriptTestTask < ::Rake::TaskLib
       @browsers.each do |browser|
         if browser.supported?
           t0 = Time.now
-          results = {:tests => 0, :assertions => 0, :failures => 0, :errors => 0}
+          results = {:tests => 0, :assertions => 0, :failures => 0, :errors => 0, :warnings => 0}
           errors = []
           failures = []
+          warnings = []
           browser.setup
           puts "\nStarted tests in #{browser}"
           @tests.each do |test|
@@ -329,13 +330,19 @@ class JavaScriptTestTask < ::Rake::TaskLib
               errors.push(test)
             end
             
+            if result[:warnings] > 0
+              value = "W"
+              warnings.push(test)
+            end
+            
             print value
           end
           
           puts "\nFinished in #{(Time.now - t0).round.to_s} seconds."
           puts "  Failures: #{failures.join(', ')}" unless failures.empty?
           puts "  Errors:   #{errors.join(', ')}" unless errors.empty?
-          puts "#{results[:tests]} tests, #{results[:assertions]} assertions, #{results[:failures]} failures, #{results[:errors]} errors"
+          puts "  Warnings: #{warnings.join(', ')}" unless warnings.empty?
+          puts "#{results[:tests]} tests, #{results[:assertions]} assertions, #{results[:failures]} failures, #{results[:errors]} errors, #{results[:warnings]} errors"
           browser.teardown
         else
           puts "\nSkipping #{browser}, not supported on this OS"

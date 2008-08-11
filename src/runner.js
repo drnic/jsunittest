@@ -63,6 +63,7 @@ JsUnitTest.Unit.Runner.prototype.getResult = function() {
     results.assertions += test.assertions;
     results.failures   += test.failures;
     results.errors     += test.errors;
+    warnings.errors    += test.warnings;
   };
   return results;
 };
@@ -74,6 +75,7 @@ JsUnitTest.Unit.Runner.prototype.postResults = function() {
     var results = this.getResult();
     var url = this.options.resultsURL + "?";
     url += "assertions="+ results.assertions + "&";
+    url += "warnings="  + results.warnings + "&";
     url += "failures="  + results.failures + "&";
     url += "errors="    + results.errors;
     JsUnitTest.ajax({
@@ -112,5 +114,5 @@ JsUnitTest.Unit.Runner.prototype.finish = function() {
 };
 
 JsUnitTest.Unit.Runner.prototype.summary = function() {
-  return new JsUnitTest.Template('#{tests} tests, #{assertions} assertions, #{failures} failures, #{errors} errors').evaluate(this.getResult());
+  return new JsUnitTest.Template('#{tests} tests, #{assertions} assertions, #{failures} failures, #{errors} errors, #{warnings} warnings').evaluate(this.getResult());
 };
