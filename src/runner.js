@@ -55,7 +55,8 @@ JsUnitTest.Unit.Runner.prototype.getResult = function() {
     tests: this.tests.length,
     assertions: 0,
     failures: 0,
-    errors: 0
+    errors: 0,
+    warnings: 0
   };
   
   for (var i=0; i < this.tests.length; i++) {
@@ -63,7 +64,7 @@ JsUnitTest.Unit.Runner.prototype.getResult = function() {
     results.assertions += test.assertions;
     results.failures   += test.failures;
     results.errors     += test.errors;
-    warnings.errors    += test.warnings;
+    results.warnings   += test.warnings;
   };
   return results;
 };

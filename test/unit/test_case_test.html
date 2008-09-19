@@ -71,6 +71,16 @@
       assertEqual('failed', testcase.status(), 'Should be equal');
     }},
 
+    // Warn
+    testWarn: function() { with(this) {
+      testcase.warn("xxx");
+      assertEqual(0, testcase.assertions, "Assertions");
+      assertEqual(0, testcase.failures, "Failures");
+      assertEqual(1, testcase.warnings, "Warnings");
+      assertMatch(/^Warning: xxx/, testcase.messages[0]);
+      assertEqual('warning', testcase.status(), 'Should be equal');
+    }},
+
     // Error
     testError: function() { with(this) {
       testcase.error({name: "name", message: "An Error"});

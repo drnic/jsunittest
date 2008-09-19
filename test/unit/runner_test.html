@@ -42,6 +42,7 @@
       JsUnitTest.Unit.Testcase.prototype.assertions = 1;
       JsUnitTest.Unit.Testcase.prototype.failures = 0;
       JsUnitTest.Unit.Testcase.prototype.errors = 0;
+      JsUnitTest.Unit.Testcase.prototype.warnings = 0;
       JsUnitTest.Unit.Logger = function() {};
       JsUnitTest.Unit.Logger.prototype.start = function() {};
       JsUnitTest.Unit.Logger.prototype.finish = function() {};
@@ -64,7 +65,8 @@
       assertEqual(2, results.assertions);
       assertEqual(0, results.errors);
       assertEqual(0, results.failures);
-      assertEqual("2 tests, 2 assertions, 0 failures, 0 errors", runner.summary());
+      assertEqual(0, results.warnings);
+      assertEqual("2 tests, 2 assertions, 0 failures, 0 errors, 0 warnings", runner.summary());
     }},
 
     
