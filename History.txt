@@ -1,3 +1,7 @@
+== 0.7.1 2008-09-20
+
+* Fixes for warning implementation [dchelimsky]
+
 == 0.7.0 2008-08-11
 
 * New helper: warning (alias: warn); use like info, error and fail helpers; has orange appearance in output
