@@ -75,6 +75,7 @@ JsUnitTest.Unit.Runner.prototype.postResults = function() {
     //   { method: 'get', parameters: this.getResult(), asynchronous: false });
     var results = this.getResult();
     var url = this.options.resultsURL + "?";
+    url += "tests="+ this.tests.length + "&";
     url += "assertions="+ results.assertions + "&";
     url += "warnings="  + results.warnings + "&";
     url += "failures="  + results.failures + "&";
