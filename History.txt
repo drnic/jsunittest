@@ -1,3 +1,8 @@
+== 0.7.2 2008-10-08
+
+* AJAX callback from IE6 working [choan]
+* warning count passed back [choan]
+
 == 0.7.1 2008-09-20
 
 * Fixes for warning implementation [dchelimsky]
