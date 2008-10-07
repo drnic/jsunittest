@@ -30,7 +30,7 @@ JsUnitTest.ajax = function( options ) {
     };
 
     // Create the request object
-    var xml = new XMLHttpRequest();
+    var xml = window.ActiveXObject ? new ActiveXObject('Microsoft.XMLHTTP') : new XMLHttpRequest();
 
     // Open the asynchronous POST request
     xml.open(options.type, options.url, true);
@@ -118,5 +118,4 @@ JsUnitTest.ajax = function( options ) {
         return data;
     }
 
-}
-
+};
