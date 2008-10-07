@@ -281,7 +281,8 @@ class JavaScriptTestTask < ::Rake::TaskLib
         :tests => req.query['tests'].to_i,
         :assertions => req.query['assertions'].to_i,
         :failures => req.query['failures'].to_i,
-        :errors => req.query['errors'].to_i
+        :errors => req.query['errors'].to_i,
+        :warnings => req.query['warnings'].to_i
       })
       res.body = "OK"
     end
