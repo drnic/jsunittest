@@ -7,7 +7,14 @@ var JsUnitTest = {
       if (typeof object == "string") {
         var useDoubleQuotes = arguments[1];
         var escapedString = this.gsub(object, /[\x00-\x1f\\]/, function(match) {
-          var character = String.specialChar[match[0]];
+          var character = {
+            '\b': '\\b',
+            '\t': '\\t',
+            '\n': '\\n',
+            '\f': '\\f',
+            '\r': '\\r',
+            '\\': '\\\\'
+          }[match[0]];
           return character ? character : '\\u00' + match[0].charCodeAt().toPaddedString(2, 16);
         });
         if (useDoubleQuotes) return '"' + escapedString.replace(/"/g, '\\"') + '"';
