@@ -15,7 +15,7 @@ var JsUnitTest = {
             '\r': '\\r',
             '\\': '\\\\'
           }[match[0]];
-          return character ? character : '\\u00' + match[0].charCodeAt().toPaddedString(2, 16);
+          return character ? character : '\\u00' + JsUnitTest.toHexString(match[0].charCodeAt());
         });
         if (useDoubleQuotes) return '"' + escapedString.replace(/"/g, '\\"') + '"';
         return "'" + escapedString.replace(/'/g, '\\\'') + "'";
@@ -57,6 +57,10 @@ var JsUnitTest = {
   },
   escapeHTML: function(data) {
     return data.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  },
+  toHexString : function(n) {
+    var string = n.toString(16);
+    return '00'.substring(string.length) + string;
   },
   arrayfromargs: function(args) {
   	var myarray = new Array();

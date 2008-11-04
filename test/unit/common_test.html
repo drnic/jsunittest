@@ -51,7 +51,15 @@
       var expected = [ 'a', 1, 'b', 2, 'zzz', 1, 2, 3];
       var actual   = JsUnitTest.flattenArray(original);
       assertEnumEqual(expected, actual);
-    }}
+    }},
+    testToHexString: function() { with(this) {
+      assertEqual('01', JsUnitTest.toHexString(1));
+      assertEqual('0f', JsUnitTest.toHexString(15));
+      assertEqual('f0', JsUnitTest.toHexString(240));
+      assertEqual('ff', JsUnitTest.toHexString(255));
+    }},
+
+    
 
     
   }); 
