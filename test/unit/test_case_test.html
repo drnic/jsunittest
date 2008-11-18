@@ -83,7 +83,7 @@
 
     // Error
     testError: function() { with(this) {
-      testcase.error({name: "name", message: "An Error"});
+      testcase.error({name: "name", message: "An Error"}, this);
       assertEqual(0, testcase.assertions, "Assertions");
       assertEqual(1, testcase.errors, "Errors");
       assertEqual("name: An Error([object Object])", testcase.messages[0], 'Should be equal');

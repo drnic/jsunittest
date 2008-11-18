@@ -85,8 +85,13 @@ JsUnitTest.Unit.Testcase.prototype.info = function(message) {
 
 JsUnitTest.Unit.Testcase.prototype.error = function(error, test) {
   this.errors++;
-  this.actions['retry with throw'] = function() { test.run(true) };
+  this.actions['retry with throw'] = function() { test.run(true); };
   this.messages.push(error.name + ": "+ error.message + "(" + JsUnitTest.inspect(error) + ")");
+  if( typeof console != "undefined" && console.error && console.warn && console.info) {
+   console.error("Test '" + test.name.replace(/^\s+/), ''.replace(/\s+$/, '') + "' died, exception and test follows");
+   console.info(error);
+   console.warn(test.test.toString());
+  }
 };
 
 JsUnitTest.Unit.Testcase.prototype.status = function() {
