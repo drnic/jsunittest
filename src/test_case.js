@@ -87,10 +87,10 @@ JsUnitTest.Unit.Testcase.prototype.error = function(error, test) {
   this.errors++;
   this.actions['retry with throw'] = function() { test.run(true); };
   this.messages.push(error.name + ": "+ error.message + "(" + JsUnitTest.inspect(error) + ")");
-  if( typeof console != "undefined" && console.error && console.warn && console.info) {
+  if( typeof console != "undefined" && console.error) {
    console.error("Test '" + test.name + "' died, exception and test follows");
-   console.info(error);
-   console.warn(test.test.toString());
+   console.error(error);
+   console.error(test.test.toString());
   }
 };
 

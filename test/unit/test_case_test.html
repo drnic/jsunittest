@@ -83,12 +83,33 @@
 
     // Error
     testError: function() { with(this) {
-      testcase.error({name: "name", message: "An Error"}, this);
+      testcase.error({name: "name", message: "An Error"}, testcase);
       assertEqual(0, testcase.assertions, "Assertions");
       assertEqual(1, testcase.errors, "Errors");
       assertEqual("name: An Error([object Object])", testcase.messages[0], 'Should be equal');
       assertEqual('error', testcase.status(), 'Should be equal');
     }},
+    
+    testErrorOnFirebug : function() { with(this) {
+      var results = [];
+      var orig_console = window.console;
+      try {
+        // we need to delete the firebug console on Firefox
+        // but the delete statement fails on IE
+        delete window.console;
+      } catch(e) {};
+      window.console = {
+        error: function(s) {
+          results.push(s);
+        }
+      };
+      testcase.error({name: "name", message: "An Error"}, testcase);
+      var fn = function() {};
+      assertEqual("Test 'name' died, exception and test follows", results[0]);
+      assertEqual(fn.toString(), results[2]);
+      assertHashEqual({ message: 'An Error', name: 'name' }, results[1]);
+      window.console = orig_console;
+    }}
 
   }); 
 // ]]>
