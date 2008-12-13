@@ -32,22 +32,22 @@ JsUnitTest.Unit.Assertions = {
   
   assertEnumEqual: function(expected, actual, message) {
     message = this.buildMessage(message || 'assertEnumEqual', 'expected <?>, actual: <?>', expected, actual);
-    this.assertBlock(message, JsUnitTest.areArraysEqual(expected, actual));
+    this.assertBlock(message, function() { return JsUnitTest.areArraysEqual(expected, actual) });
   },
   
   assertEnumNotEqual: function(expected, actual, message) {
     message = this.buildMessage(message || 'assertEnumNotEqual', '<?> was the same as <?>', expected, actual);
-    this.assert(message, JsUnitTest.areArraysNotEqual(expected_array, actual_array);
+    this.assertBlock(message, function() { return JsUnitTest.areArraysNotEqual(expected, actual) });
   },
   
   assertHashEqual: function(expected, actual, message) {
-    message = this.buildMessage(message || 'assertHashEqual', 'expected <?>, actual: <?>', expected, actual);
-    this.assert(message, JsUnitTest.areHashesEqual(expected_array, actual_array))
+    message = this.buildMessage(message || 'assertHashEqual', 'expected <?>, actual: <?>', JsUnitTest.inspect(expected), JsUnitTest.inspect(actual));
+    this.assertBlock(message, function() { return JsUnitTest.areHashesEqual(expected, actual) });
   },
   
   assertHashNotEqual: function(expected, actual, message) {
-    message = this.buildMessage(message || 'assertHashNotEqual', '<?> was the same as <?>', expected, actual);
-    this.assert(message, JsUnitTest.areHashesNotEqual(expected_array, actual_array));
+    message = this.buildMessage(message || 'assertHashNotEqual', '<?> was the same as <?>', JsUnitTest.inspect(expected), JsUnitTest.inspect(actual));
+    this.assertBlock(message, function() { return JsUnitTest.areHashesNotEqual(expected, actual) });
   },
   
   assertIdentical: function(expected, actual, message) {

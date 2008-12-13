@@ -13,6 +13,13 @@ var JsUnitTest = {
         if (useDoubleQuotes) return '"' + escapedString.replace(/"/g, '\\"') + '"';
         return "'" + escapedString.replace(/'/g, '\\\'') + "'";
       };
+      if ((typeof object == 'object') && (object.constructor == Object)) { // its probably an object.
+        var keys_values = new Array(), prefix = 'Object: { ';
+        for (property in object) {
+          keys_values.push(property + ': ' + object[property]);
+        }
+        return (prefix + keys_values.join(', ') + ' }');
+      }
       return String(object);
     } catch (e) {
       if (e instanceof RangeError) return '...';
@@ -74,18 +81,18 @@ var JsUnitTest = {
     return false;
   },
   
-  areArraysNotEqual: function(expected_array, actual_array) {
-    return !this.areArraysEqual(expected_array, actual_array);
+  areArraysNotEqual: function(expected, actual) {
+    return !this.areArraysEqual(expected, actual);
   },
 
   areHashesEqual: function(expected, actual) {
     var expected_array = JsUnitTest.hashToSortedArray(expected);
     var actual_array   = JsUnitTest.hashToSortedArray(actual);
-    this.areArraysEqual(expected_array, actual_array);
+    return this.areArraysEqual(expected_array, actual_array);
   },
   
   areHashesNotEqual: function(expected, actual) {
-    !this.areHashesNotEqual(expected_acutal);
+    return !this.areHashesEqual(expected, actual);
   },
   
   hashToSortedArray: function(hash) {
