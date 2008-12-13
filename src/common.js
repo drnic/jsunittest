@@ -60,6 +60,34 @@ var JsUnitTest = {
 
   	return myarray;
   },
+  
+  // from now we recursively zip & compare nested arrays
+  areArraysEqual: function(expected, actual) {
+    var expected_array = JsUnitTest.flattenArray(expected);
+    var actual_array   = JsUnitTest.flattenArray(actual);
+    if (expected_array.length == actual_array.length) {
+      for (var i=0; i < expected_array.length; i++) {
+        if (expected_array[i] != actual_array[i]) return false;
+      };
+      return true;
+    }
+    return false;
+  },
+  
+  areArraysNotEqual: function(expected_array, actual_array) {
+    return !this.areArraysEqual(expected_array, actual_array);
+  },
+
+  areHashesEqual: function(expected, actual) {
+    var expected_array = JsUnitTest.hashToSortedArray(expected);
+    var actual_array   = JsUnitTest.hashToSortedArray(actual);
+    this.areArraysEqual(expected_array, actual_array);
+  },
+  
+  areHashesNotEqual: function(expected, actual) {
+    !this.areHashesNotEqual(expected_acutal);
+  },
+  
   hashToSortedArray: function(hash) {
     var results = [];
     for (key in hash) {
