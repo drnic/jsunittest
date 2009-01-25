@@ -13,7 +13,7 @@ var JsUnitTest = {
         if (useDoubleQuotes) return '"' + escapedString.replace(/"/g, '\\"') + '"';
         return "'" + escapedString.replace(/'/g, '\\\'') + "'";
       };
-      if ((typeof object == 'object') && (object.constructor == Object)) { // its probably an object.
+			if (JsUnitTest.getClass(object) === 'Object') {
         var keys_values = new Array(), prefix = 'Object: { ';
         for (property in object) {
           keys_values.push(property + ': ' + object[property]);
@@ -26,7 +26,13 @@ var JsUnitTest = {
       throw e;
     }
   },
-  $: function(element) {
+
+  getClass: function(object) {
+    return Object.prototype.toString.call(object)
+     .match(/^\[object\s(.*)\]$/)[1]; 
+  },
+
+	$: function(element) {
     if (arguments.length > 1) {
       for (var i = 0, elements = [], length = arguments.length; i < length; i++)
         elements.push(this.$(arguments[i]));
@@ -36,7 +42,8 @@ var JsUnitTest = {
       element = document.getElementById(element);
     return element;
   },
-  gsub: function(source, pattern, replacement) {
+
+	gsub: function(source, pattern, replacement) {
     var result = '', match;
     replacement = arguments.callee.prepareReplacement(replacement);
 
@@ -185,7 +192,8 @@ var JsUnitTest = {
 
     return match;
   },
-  toQueryParams: function(query, separator) {
+  
+	toQueryParams: function(query, separator) {
     var query = query || window.location.search;
     var match = query.replace(/^\s+/, '').replace(/\s+$/, '').match(/([^?#]*)(#.*)?$/);
     if (!match) return { };
