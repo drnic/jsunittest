@@ -47,7 +47,7 @@
       var pattern = /(^|.|\r|\n)(#\((.*?)\))/;
       assertEqual('#{name}: Stephan', new JsUnitTest.Template('\\#{name}: #{name}').evaluate(subject));
       assertEqual('#(name): Stephan', new JsUnitTest.Template('\\#(name): #(name)', pattern).evaluate(subject));
-    }},
+    }}
     
       
   }); 
