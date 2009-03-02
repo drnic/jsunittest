@@ -82,6 +82,9 @@
       assertEqual("a", "a");
       assertEqual("a", "a", "test");
       
+      assertEqual("A\nnew line", "A\nnew line", "New lines");
+      assertEqual("A\x18special char", "A\x18special char", "Other special char");
+      
       assertNotEqual(0, 1);
       assertNotEqual("a","b");
       assertNotEqual({},{});
