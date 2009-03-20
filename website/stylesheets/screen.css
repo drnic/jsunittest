@@ -28,6 +28,9 @@ a {
   font-weight: normal;
   text-decoration: underline;
 }
+a.image {
+	background: none;
+}
 blockquote {
   font-size: 90%;
   font-style: italic;

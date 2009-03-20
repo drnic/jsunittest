@@ -39,6 +39,7 @@ task :dist do
       dist << Protodoc::Preprocessor.new(APP_FILE_NAME)
     end
   end
+  FileUtils.cp(APP_ROOT + "/test/assets/unittest.css", APP_DIST_DIR)
   Dir.chdir(APP_DIST_DIR) do
     FileUtils.copy_file APP_FILE_NAME, "#{APP_NAME}-#{APP_VERSION}.js"
   end

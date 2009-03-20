@@ -8,7 +8,7 @@ This is based off unittest.js from "prototypejs":http://prototypejs.org, except 
 
 There is also a TextMate bundle with snippets for creating the runner and assertions.
 
-<a href="tmbundle/JavaScript Unit Testing.tmbundle.tar.gz"><img src="images/logo_bundle.png" width="50" height="51" alt="Logo Bundle" border=0></a> - click to download. More information below.
+<a class="image" href="tmbundle/JavaScript Unit Testing.tmbundle.tar.gz"><img src="images/logo_bundle.png" alt="Logo Bundle" border=0></a> - click to download. More information below.
 
 h2. Downloading
 
