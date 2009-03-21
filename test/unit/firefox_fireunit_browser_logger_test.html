@@ -32,21 +32,28 @@ if (typeof fireunit != "undefined" && fireunit) {
   new Test.Unit.Runner({
     setup: function() {
       this.queueResults = fireunit.queueResults();
-      for (var i=0; i < this.queueResults.length; i++) {
-        this.queueResults.pop();
-      };
+      for (var i=0; i < this.queueResults.length; i++) this.queueResults.pop();
       // fireunit.testDone();
-      // this.logger = new JsUnitTest.Unit.BrowserLogger.FirefoxFireunit(); 
+      this.logger = new JsUnitTest.Unit.BrowserLogger.FirefoxFireunit(); 
     },
-    "test that a passing test is logged": function() {
-      // this.logger.status(true, "passing test");
-      fireunit.ok(true, "pass");      
-      fireunit.ok(false, "fail");      
+    "test that #forCurrentBrowser returns a browser logger": function() {
+      this.assertNotNull(JsUnitTest.Unit.BrowserLogger.forCurrentBrowser());
+    },
+    "test that a passing test is logged as ok": function() {
+      this.logger.finish(true, "passing test");
+      // fireunit.ok(true, "pass");      
       var result = this.queueResults.shift();
       this.assert(result.pass);
+    },
+    "test that a failing test is logged as !ok": function() {
+      this.logger.finish(false, "failing test");
+      // fireunit.ok(false, "failing test");      
       var result = this.queueResults.shift();
       this.assert(!result.pass);
+      this.assertEqual('failing test', result.msg);
     }
+
+    
     
     // setTimeout(function(){
     //     // Finish test
