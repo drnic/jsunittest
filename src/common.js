@@ -20,13 +20,26 @@ var JsUnitTest = {
         if (useDoubleQuotes) return '"' + escapedString.replace(/"/g, '\\"') + '"';
         return "'" + escapedString.replace(/'/g, '\\\'') + "'";
       };
+			if (JsUnitTest.getClass(object) === 'Object') {
+        var keys_values = new Array(), prefix = 'Object: { ';
+        for (property in object) {
+          keys_values.push(property + ': ' + object[property]);
+        }
+        return (prefix + keys_values.join(', ') + ' }');
+      }
       return String(object);
     } catch (e) {
       if (e instanceof RangeError) return '...';
       throw e;
     }
   },
-  $: function(element) {
+
+  getClass: function(object) {
+    return Object.prototype.toString.call(object)
+     .match(/^\[object\s(.*)\]$/)[1]; 
+  },
+
+	$: function(element) {
     if (arguments.length > 1) {
       for (var i = 0, elements = [], length = arguments.length; i < length; i++)
         elements.push(this.$(arguments[i]));
@@ -36,7 +49,8 @@ var JsUnitTest = {
       element = document.getElementById(element);
     return element;
   },
-  gsub: function(source, pattern, replacement) {
+
+	gsub: function(source, pattern, replacement) {
     var result = '', match;
     replacement = arguments.callee.prepareReplacement(replacement);
 
@@ -71,6 +85,34 @@ var JsUnitTest = {
 
   	return myarray;
   },
+  
+  // from now we recursively zip & compare nested arrays
+  areArraysEqual: function(expected, actual) {
+    var expected_array = JsUnitTest.flattenArray(expected);
+    var actual_array   = JsUnitTest.flattenArray(actual);
+    if (expected_array.length == actual_array.length) {
+      for (var i=0; i < expected_array.length; i++) {
+        if (expected_array[i] != actual_array[i]) return false;
+      };
+      return true;
+    }
+    return false;
+  },
+  
+  areArraysNotEqual: function(expected, actual) {
+    return !this.areArraysEqual(expected, actual);
+  },
+
+  areHashesEqual: function(expected, actual) {
+    var expected_array = JsUnitTest.hashToSortedArray(expected);
+    var actual_array   = JsUnitTest.hashToSortedArray(actual);
+    return this.areArraysEqual(expected_array, actual_array);
+  },
+  
+  areHashesNotEqual: function(expected, actual) {
+    return !this.areHashesEqual(expected, actual);
+  },
+  
   hashToSortedArray: function(hash) {
     var results = [];
     for (key in hash) {
@@ -161,7 +203,8 @@ var JsUnitTest = {
 
     return match;
   },
-  toQueryParams: function(query, separator) {
+  
+	toQueryParams: function(query, separator) {
     var query = query || window.location.search;
     var match = query.replace(/^\s+/, '').replace(/\s+$/, '').match(/([^?#]*)(#.*)?$/);
     if (!match) return { };
