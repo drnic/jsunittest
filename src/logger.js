@@ -1,5 +1,7 @@
 JsUnitTest.Unit.Logger = function(element) {
+  if (!element) return;
   this.element = JsUnitTest.$(element);
+  if (!this.element) return;
   if (this.element) this._createLogTable();
 };
   
@@ -22,6 +24,7 @@ JsUnitTest.Unit.Logger.prototype.start = function(testName) {
 };
   
 JsUnitTest.Unit.Logger.prototype.setStatus = function(status) {
+  if (!this.element) return;
   var logline = this.getLastLogLine();
   logline.className = status;
   var statusCell = logline.getElementsByTagName('td')[1];
@@ -29,10 +32,17 @@ JsUnitTest.Unit.Logger.prototype.setStatus = function(status) {
 };
   
 JsUnitTest.Unit.Logger.prototype.finish = function(status, summary) {
+  if (fireunit) {
+    fireunit.ok(this.isOk(status), summary); 
+  }
   if (!this.element) return;
   this.setStatus(status);
   this.message(summary);
 };
+
+JsUnitTest.Unit.Logger.prototype.isOk = function(status) {
+  return (status =~ /(pass|info|ok)/i);
+}
   
 JsUnitTest.Unit.Logger.prototype.message = function(message) {
   if (!this.element) return;
@@ -49,17 +59,20 @@ JsUnitTest.Unit.Logger.prototype.summary = function(summary) {
 };
   
 JsUnitTest.Unit.Logger.prototype.getLastLogLine = function() {
+  if (!this.element) return;
   var tbody = this.element.getElementsByTagName('tbody')[0];
   var loglines = tbody.getElementsByTagName('tr');
   return loglines[loglines.length - 1];
 };
   
 JsUnitTest.Unit.Logger.prototype.getMessageCell = function() {
+  if (!this.element) return;
   var logline = this.getLastLogLine();
   return logline.getElementsByTagName('td')[2];
 };
   
 JsUnitTest.Unit.Logger.prototype._createLogTable = function() {
+  if (!this.element) return;
   var html = '<div class="logsummary">running...</div>' +
   '<table class="logtable">' +
   '<thead><tr><th>Status</th><th>Test</th><th>Message</th></tr></thead>' +
