@@ -1,8 +1,8 @@
-/*  Jsunittest, version <%= APP_VERSION %>
+/*  JsUnitTest, version <%= APP_VERSION %>
  *  (c) 2008 Dr Nic Williams
  *
- *  Jsunittest is freely distributable under 
+ *  JsUnitTest is freely distributable under 
  *  the terms of an MIT-style license.
- *  For details, see the web site: http://jsunittest.rubyforge.org
+ *  For details, see the web site: http://jsunittest.com
  *
  *--------------------------------------------------------------------------*/

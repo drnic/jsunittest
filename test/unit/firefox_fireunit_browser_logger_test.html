@@ -20,7 +20,8 @@
     </p>
   </div>
   
-  <div id="testlog"></div>
+  <div id="testlog-browser"></div>
+  <div id="testlog-unknown-browser"></div>
 
   <!-- Put sample/test html here -->
   <div id="sample"></div>
@@ -34,7 +35,7 @@ if (typeof fireunit != "undefined" && fireunit) {
       this.queueResults = fireunit.queueResults();
       for (var i=0; i < this.queueResults.length; i++) this.queueResults.pop();
       // fireunit.testDone();
-      this.logger = new JsUnitTest.Unit.BrowserLogger.FirefoxFireunit(); 
+      this.logger = new JsUnitTest.Unit.BrowserLogger.FirefoxFireunitLogger(); 
     },
     "test that #forCurrentBrowser returns a browser logger": function() {
       this.assertNotNull(JsUnitTest.Unit.BrowserLogger.forCurrentBrowser());
@@ -62,14 +63,29 @@ if (typeof fireunit != "undefined" && fireunit) {
     
 
 
-  });
+  }, {testLog: "testlog-browser"});
 } else {
-  document.getElementById('testlog').innerHTML = 
-    "<strong>Install FireFox add-on http://fireunit.org for these tests to be executed</strong>";
-  if (console && console.log) {
-    console.log("Install FireFox add-on http://fireunit.org for these tests to be executed");
-  }
+  // document.getElementById('testlog').innerHTML = 
+  //   "<strong>Install FireFox add-on http://fireunit.org for these tests to be executed</strong>";
+  // if (console && console.log) {
+  //   console.log("Install FireFox add-on http://fireunit.org for these tests to be executed");
+  // }
+  new Test.Unit.Runner({
+    "test that you need to run this in firefox": function() {
+      this.info('Install FireFox add-on http://fireunit.org for these tests to be executed')
+    }
+  }, {testLog: "testlog-browser"});
 }
+new Test.Unit.Runner({
+  setup: function() {
+    this.logger = new JsUnitTest.Unit.BrowserLogger.NoBrowserSupportLogger(); 
+  },
+    
+  "test that #finish method exists": function() {
+    this.logger.finish(true, "passing test");
+    this.logger.finish(false, "failing test");
+  }
+}, {testLog: "testlog-unknown-browser"});
 // ]]>
 </script>
 </body>
