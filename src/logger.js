@@ -37,11 +37,6 @@ JsUnitTest.Unit.Logger.prototype.finish = function(status, summary) {
   this.message(summary);
 };
 
-JsUnitTest.Unit.Logger.prototype.isOk = function(status) {
-  var validStatus = /(pass|info|ok)/i;
-  return (status =~ validStatus);
-};
-  
 JsUnitTest.Unit.Logger.prototype.message = function(message) {
   if (!this.element) return;
   var cell = this.getMessageCell();
