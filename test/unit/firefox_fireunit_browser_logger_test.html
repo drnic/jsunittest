@@ -41,14 +41,12 @@ if (typeof fireunit != "undefined" && fireunit) {
       this.assertNotNull(JsUnitTest.Unit.BrowserLogger.forCurrentBrowser());
     },
     "test that a passing test is logged as ok": function() {
-      this.logger.finish(true, "passing test");
-      // fireunit.ok(true, "pass");      
+      this.logger.ok(true, "passing test");
       var result = this.queueResults.shift();
       this.assert(result.pass);
     },
     "test that a failing test is logged as !ok": function() {
-      this.logger.finish(false, "failing test");
-      // fireunit.ok(false, "failing test");      
+      this.logger.ok(false, "failing test");
       var result = this.queueResults.shift();
       this.assert(!result.pass);
       this.assertEqual('failing test', result.msg);
@@ -82,8 +80,8 @@ new Test.Unit.Runner({
   },
     
   "test that #finish method exists": function() {
-    this.logger.finish(true, "passing test");
-    this.logger.finish(false, "failing test");
+    this.logger.ok(true, "passing test");
+    this.logger.ok(false, "failing test");
   }
 }, {testLog: "testlog-unknown-browser"});
 // ]]>

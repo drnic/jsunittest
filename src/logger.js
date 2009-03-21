@@ -15,7 +15,7 @@ JsUnitTest.Unit.Logger.prototype.start = function(testName) {
   //testname
   td = document.createElement('td');
   td.appendChild(document.createTextNode(testName));
-  tr.appendChild(td)
+  tr.appendChild(td);
   
   tr.appendChild(document.createElement('td'));//status
   tr.appendChild(document.createElement('td'));//message
@@ -32,17 +32,15 @@ JsUnitTest.Unit.Logger.prototype.setStatus = function(status) {
 };
   
 JsUnitTest.Unit.Logger.prototype.finish = function(status, summary) {
-  if (fireunit) {
-    fireunit.ok(this.isOk(status), summary); 
-  }
   if (!this.element) return;
   this.setStatus(status);
   this.message(summary);
 };
 
 JsUnitTest.Unit.Logger.prototype.isOk = function(status) {
-  return (status =~ /(pass|info|ok)/i);
-}
+  var validStatus = /(pass|info|ok)/i;
+  return (status =~ validStatus);
+};
   
 JsUnitTest.Unit.Logger.prototype.message = function(message) {
   if (!this.element) return;
