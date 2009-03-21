@@ -146,8 +146,21 @@ JsUnitTest.Unit.Assertions = {
   assertHasClass: function(element, klass, message) {
     element = JsUnitTest.$(element);
     message = this.buildMessage(message || 'assertHasClass', '? doesn\'t have class <?>.', element, klass);
-    this.assertBlock(message, function() { 
-      return !!element.className.match(new RegExp(klass))
+    this.assertBlock(message, function() {
+      var elementClassName = element.className;
+      return (elementClassName.length > 0 && (elementClassName == klass ||
+        new RegExp("(^|\\s)" + klass + "(\\s|$)").test(elementClassName)));
+      // return !!element.className.match(new RegExp(klass))
+    });
+  },
+  
+  assertNotHasClass: function(element, klass, message) {
+    element = JsUnitTest.$(element);
+    message = this.buildMessage(message || 'assertNotHasClass', '? does have class <?>.', element, klass);
+    this.assertBlock(message, function() {
+      var elementClassName = element.className;
+      return !(elementClassName.length > 0 && (elementClassName == klass ||
+        new RegExp("(^|\\s)" + klass + "(\\s|$)").test(elementClassName)));
     });
   },
   

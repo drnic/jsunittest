@@ -1,3 +1,8 @@
+== 0.7.3 2009-03-21
+
+* New assertions: assertNotHasClass(element, class)
+* Fixed algorithm for assertHasClass
+
 == 0.7.2 2008-10-08
 
 * AJAX callback from IE6 working [choan]

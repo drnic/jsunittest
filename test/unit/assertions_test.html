@@ -165,8 +165,13 @@
     testHasClass: function() { with(this) {
       // <div id="test_1" class="a bbbbbbbbbbbb cccccccccc dddd"> </div>
       assertHasClass('test_1', 'a');
-      // info(document.getElementById('test_1').className);
       assertHasClass(document.getElementById('test_1'), 'dddd');
+    }},
+    
+    testNotHasClass: function() { with(this) {
+      // <div id="test_1" class="a bbbbbbbbbbbb cccccccccc dddd"> </div>
+      assertNotHasClass('test_1', 'abc');
+      assertNotHasClass(document.getElementById('test_1'), 'ddd');
     }},
     
     testAssertVisible: function() { with(this) {
