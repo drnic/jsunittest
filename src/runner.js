@@ -23,7 +23,7 @@ JsUnitTest.Unit.Runner.prototype.portNumber = function() {
   if (window.location.search.length > 0) {
     var matches = window.location.search.match(/\:(\d{3,5})\//);
     if (matches) {
-      return parseInt(matches[1]);
+      return parseInt(matches[1], 10);
     }
   }
   return null;
@@ -31,22 +31,23 @@ JsUnitTest.Unit.Runner.prototype.portNumber = function() {
 
 JsUnitTest.Unit.Runner.prototype.getTests = function(testcases) {
   var tests = [], options = this.options;
-  if (this.queryParams.tests) tests = this.queryParams.tests.split(',');
-  else if (options.tests) tests = options.tests;
-  else if (options.test) tests = [option.test];
+  if (this.queryParams.tests) {tests = this.queryParams.tests.split(',');}
+  else if (options.tests) {tests = options.tests;}
+  else if (options.test) {tests = [option.test];}
   else {
     for (testname in testcases) {
-      if (testname.match(/^test/)) tests.push(testname);
+      if (testname.match(/^test/)) {tests.push(testname);}
     }
   }
   var results = [];
   for (var i=0; i < tests.length; i++) {
     var test = tests[i];
-    if (testcases[test])
+    if (testcases[test]) {
       results.push(
         new JsUnitTest.Unit.Testcase(test, testcases[test], testcases.setup, testcases.teardown)
       );
-  };
+    }
+  }
   return results;
 };
 
@@ -65,7 +66,7 @@ JsUnitTest.Unit.Runner.prototype.getResult = function() {
     results.failures   += test.failures;
     results.errors     += test.errors;
     results.warnings   += test.warnings;
-  };
+  }
   return results;
 };
 
@@ -83,15 +84,15 @@ JsUnitTest.Unit.Runner.prototype.postResults = function() {
     JsUnitTest.ajax({
       url: url,
       type: 'GET'      
-    })
+    });
   }
 };
 
 JsUnitTest.Unit.Runner.prototype.runTests = function() {
   var test = this.tests[this.currentTest], actions;
   
-  if (!test) return this.finish();
-  if (!test.isWaiting) this.logger.start(test.name);
+  if (!test) {return this.finish();}
+  if (!test.isWaiting) {this.logger.start(test.name);}
   test.run();
   var self = this;
   if(test.isWaiting) {
@@ -104,7 +105,7 @@ JsUnitTest.Unit.Runner.prototype.runTests = function() {
   }
   
   this.logger.finish(test.status(), test.summary());
-  if (actions = test.actions) this.logger.appendActionButtons(actions);
+  if (actions = test.actions) {this.logger.appendActionButtons(actions);}
   this.currentTest++;
   // tail recursive, hopefully the browser will skip the stackframe
   this.runTests();

@@ -12,6 +12,6 @@ JsUnitTest.Unit.MessageTemplate.prototype.evaluate = function(params) {
     var part = this.parts[i];
     var result = (part == '?') ? JsUnitTest.inspect(params.shift()) : part.replace(/\\\?/, '?');
     results.push(result);
-  };
+  }
   return results.join('');
 };

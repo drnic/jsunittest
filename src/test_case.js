@@ -31,7 +31,7 @@ JsUnitTest.Unit.Testcase.prototype.wait = function(time, nextPart) {
 JsUnitTest.Unit.Testcase.prototype.run = function(rethrow) {
   try {
     try {
-      if (!this.isWaiting) this.setup();
+      if (!this.isWaiting) {this.setup();}
       this.isWaiting = false;
       this.test();
     } finally {
@@ -41,7 +41,7 @@ JsUnitTest.Unit.Testcase.prototype.run = function(rethrow) {
     }
   }
   catch(e) { 
-    if (rethrow) throw e;
+    if (rethrow) {throw e;}
     this.error(e, this); 
   }
 };
@@ -95,9 +95,9 @@ JsUnitTest.Unit.Testcase.prototype.error = function(error, test) {
 };
 
 JsUnitTest.Unit.Testcase.prototype.status = function() {
-  if (this.failures > 0) return 'failed';
-  if (this.errors > 0) return 'error';
-  if (this.warnings > 0) return 'warning';
+  if (this.failures > 0) {return 'failed';}
+  if (this.errors > 0) {return 'error';}
+  if (this.warnings > 0) {return 'warning';}
   return 'passed';
 };
 

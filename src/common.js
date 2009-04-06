@@ -2,8 +2,8 @@ var JsUnitTest = {
   Unit: {},
   inspect: function(object) {
     try {
-      if (typeof object == "undefined") return 'undefined';
-      if (object === null) return 'null';
+      if (typeof object == "undefined") {return 'undefined';}
+      if (object === null) {return 'null';}
       if (typeof object == "string") {
         var useDoubleQuotes = arguments[1];
         var escapedString = this.gsub(object, /[\x00-\x1f\\]/, function(match) {
@@ -17,9 +17,9 @@ var JsUnitTest = {
           }[match[0]];
           return character ? character : '\\u00' + JsUnitTest.toHexString(match[0].charCodeAt());
         });
-        if (useDoubleQuotes) return '"' + escapedString.replace(/"/g, '\\"') + '"';
+        if (useDoubleQuotes) {return '"' + escapedString.replace(/"/g, '\\"') + '"';}
         return "'" + escapedString.replace(/'/g, '\\\'') + "'";
-      };
+      }
 			if (JsUnitTest.getClass(object) === 'Object') {
         var keys_values = new Array(), prefix = 'Object: { ';
         for (property in object) {
@@ -29,7 +29,7 @@ var JsUnitTest = {
       }
       return String(object);
     } catch (e) {
-      if (e instanceof RangeError) return '...';
+      if (e instanceof RangeError) {return '...';}
       throw e;
     }
   },
@@ -41,12 +41,14 @@ var JsUnitTest = {
 
 	$: function(element) {
     if (arguments.length > 1) {
-      for (var i = 0, elements = [], length = arguments.length; i < length; i++)
+      for (var i = 0, elements = [], length = arguments.length; i < length; i++) {
         elements.push(this.$(arguments[i]));
+      }
       return elements;
     }
-    if (typeof element == "string")
+    if (typeof element == "string") {
       element = document.getElementById(element);
+    }
     return element;
   },
 
@@ -80,8 +82,9 @@ var JsUnitTest = {
   	var myarray = new Array();
   	var i;
 
-  	for (i=0;i<args.length;i++)
-  		myarray[i] = args[i];
+  	for (i=0;i<args.length;i++) {
+  	  myarray[i] = args[i];
+  	}
 
   	return myarray;
   },
@@ -92,8 +95,8 @@ var JsUnitTest = {
     var actual_array   = JsUnitTest.flattenArray(actual);
     if (expected_array.length == actual_array.length) {
       for (var i=0; i < expected_array.length; i++) {
-        if (expected_array[i] != actual_array[i]) return false;
-      };
+        if (expected_array[i] != actual_array[i]) {return false;}
+      }
       return true;
     }
     return false;
@@ -130,7 +133,7 @@ var JsUnitTest = {
       } else {
         results.push(object);
       }
-    };
+    }
     return results;
   },
   selectorMatch: function(expression, element) {
@@ -195,7 +198,7 @@ var JsUnitTest = {
 
     var match = true, name, matches;
     for (var i = 0, token; token = tokens[i]; i++) {
-      name = token[0], matches = token[1];
+      name = token[0]; matches = token[1];
       if (!assertions[name](element, matches)) {
         match = false; break;
       }
@@ -204,10 +207,10 @@ var JsUnitTest = {
     return match;
   },
   
-	toQueryParams: function(query, separator) {
+  toQueryParams: function(query, separator) {
     var query = query || window.location.search;
     var match = query.replace(/^\s+/, '').replace(/\s+$/, '').match(/([^?#]*)(#.*)?$/);
-    if (!match) return { };
+    if (!match) {return { };}
 
     var hash = {};
     var parts = match[1].split(separator || '&');
@@ -216,18 +219,20 @@ var JsUnitTest = {
       if (pair[0]) {
         var key = decodeURIComponent(pair.shift());
         var value = pair.length > 1 ? pair.join('=') : pair[0];
-        if (value != undefined) value = decodeURIComponent(value);
+        if (value != undefined) {value = decodeURIComponent(value);}
 
         if (key in hash) {
           var object = hash[key];
           var isArray = object != null && typeof object == "object" &&
-            'splice' in object && 'join' in object
-          if (!isArray) hash[key] = [hash[key]];
+            'splice' in object && 'join' in object;
+          if (!isArray) {hash[key] = [hash[key]];}
           hash[key].push(value);
         }
-        else hash[key] = value;
+        else {
+          hash[key] = value;
+        }
       }
-    };
+    }
     return hash;
   },
   
@@ -239,7 +244,7 @@ var JsUnitTest = {
 };
 
 JsUnitTest.gsub.prepareReplacement = function(replacement) {
-  if (typeof replacement == "function") return replacement;
+  if (typeof replacement == "function") {return replacement;}
   var template = new Template(replacement);
-  return function(match) { return template.evaluate(match) };
+  return function(match) { return template.evaluate(match); };
 };

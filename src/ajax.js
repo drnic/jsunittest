@@ -111,8 +111,9 @@ JsUnitTest.ajax = function( options ) {
 
         // If the specified type is "script", execute the returned text
         // response as if it was JavaScript
-        if ( type == "script" )
+        if ( type == "script" ) {
             eval.call( window, data );
+        }
 
         // Return the response data (either an XML Document or a text string)
         return data;

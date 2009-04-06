@@ -10,9 +10,9 @@ JsUnitTest.Event.addEvent = function(element, type, handler) {
 		element.addEventListener(type, handler, false);
 	} else {
 		// assign each event handler a unique ID
-		if (!handler.$$guid) handler.$$guid = JsUnitTest.Event.addEvent.guid++;
+		if (!handler.$$guid) {handler.$$guid = JsUnitTest.Event.addEvent.guid++;}
 		// create a hash table of event types for the element
-		if (!element.events) element.events = {};
+		if (!element.events) {element.events = {};}
 		// create a hash table of event handlers for each element/event pair
 		var handlers = element.events[type];
 		if (!handlers) {
